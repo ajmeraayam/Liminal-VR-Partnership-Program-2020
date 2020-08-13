@@ -7,15 +7,22 @@ public class LadleAnimation : MonoBehaviour
     private float timeCounter = 0f;
     private float radius = 0.30f;
     private bool clickBlocked = false;
+    private Vector3 startPosition;
 
     // Update is called once per frame
-    void Update()
+    void Start()
+    {
+        startPosition = transform.localPosition;
+    }
+
+    void OnMouseDown()
     {
         // When left mouse button is clicked and clicking is unblocked
         if(Input.GetMouseButtonDown(0) && !clickBlocked)
         {
+            float yPos = transform.localPosition.y - 0.3f;
             //Move the ladle down in Y-axis
-            transform.position = new Vector3(transform.position.x, 0.3f, transform.position.z);
+            transform.localPosition = new Vector3(transform.localPosition.x, yPos, transform.localPosition.z);
             //Start the coroutine to move the ladle in circular motion
             StartCoroutine(invokeAnimation());
         }
@@ -37,7 +44,7 @@ public class LadleAnimation : MonoBehaviour
         //After 6 seconds, unblock the clicking so user can animate ladle again 
         clickBlocked = false;
         //Reset the position of the ladle
-        transform.position = new Vector3(0.3f, 0.6f, 0f);
+        transform.localPosition = startPosition;
     }
 
     //Generate the circular motion using cos and sin values.
@@ -48,7 +55,7 @@ public class LadleAnimation : MonoBehaviour
         //Move the ladle in x and z axis, in circular motion
         float x = Mathf.Cos (timeCounter) * radius;
         float z = Mathf.Sin (timeCounter) * radius;
-        float y = transform.position.y;
-        transform.position = new Vector3 (x, y, z);
+        float y = transform.localPosition.y;
+        transform.localPosition = new Vector3 (x, y, z);
     }
 }
