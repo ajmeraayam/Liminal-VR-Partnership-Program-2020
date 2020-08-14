@@ -15,7 +15,7 @@ public class LadleAnimation : MonoBehaviour
         startPosition = transform.localPosition;
     }
 
-    void OnMouseDown()
+    /*void OnMouseDown()
     {
         // When left mouse button is clicked and clicking is unblocked
         if(Input.GetMouseButtonDown(0) && !clickBlocked)
@@ -26,8 +26,17 @@ public class LadleAnimation : MonoBehaviour
             //Start the coroutine to move the ladle in circular motion
             StartCoroutine(invokeAnimation());
         }
-    }
+    }*/
 
+    public void WhenClicked()
+    {
+        float yPos = transform.localPosition.y - 0.3f;
+        //Move the ladle down in Y-axis
+        transform.localPosition = new Vector3(transform.localPosition.x, yPos, transform.localPosition.z);
+        //Start the coroutine to move the ladle in circular motion
+        StartCoroutine(invokeAnimation());
+    }
+    
     //Invokes ladle animation for 6 seconds
     IEnumerator invokeAnimation()
     {
