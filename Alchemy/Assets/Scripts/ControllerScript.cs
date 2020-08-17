@@ -53,7 +53,7 @@ public class ControllerScript : MonoBehaviour
         }
         else if(hit.gameObject.CompareTag("Fire"))
         {
-            
+            hit.gameObject.GetComponent<FireGenerator>().startFire();
         }
         else
         {
