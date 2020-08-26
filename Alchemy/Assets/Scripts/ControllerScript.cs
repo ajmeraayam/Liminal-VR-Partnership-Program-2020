@@ -55,9 +55,9 @@ public class ControllerScript : MonoBehaviour
         {
             hit.gameObject.GetComponent<FireGenerator>().startFire();
         }
-        else
+        else if(hit.gameObject.CompareTag("Herb"))
         {
-
+            hit.gameObject.GetComponent<IngredientMovement>().StartAnimation();
         }
     }
 
