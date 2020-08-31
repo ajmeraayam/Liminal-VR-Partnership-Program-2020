@@ -57,7 +57,7 @@ public class ControllerScript : MonoBehaviour
         }
         else if(hit.gameObject.CompareTag("Herb"))
         {
-            hit.gameObject.GetComponent<IngredientMovement>().StartAnimation();
+            //hit.gameObject.GetComponent<IngredientMovement>().StartAnimation();
         }
     }
 
