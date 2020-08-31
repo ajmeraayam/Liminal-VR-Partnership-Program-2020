@@ -602,7 +602,7 @@ MonoBehaviour:
   inertia: 0.9
   speedLimit: 2
   minSpeed: 1
-  stopTime: 1
+  stopTime: 2
   rotationDamping: 6
   smoothRotation: 1
   waypoints: []

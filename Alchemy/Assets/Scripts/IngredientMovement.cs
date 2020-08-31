@@ -14,8 +14,6 @@ public class IngredientMovement : MonoBehaviour
     [Tooltip("When this speed is reached, the gameobject will stop moving.")] public float minSpeed = 1f;
     // Amount of time the gameobject should wait before it starts moving towards next waypoint. 
     [Tooltip("Amount of time the gameobject should wait before it starts moving towards next waypoint.")] public float stopTime = 1f;
-    // Gameobject that should move through waypoints
-    //[Tooltip("Gameobject that should move through waypoints")] public GameObject flyingGameObject;
     // Speed of gameobject. This variable is updated each frame and is updated by acceleration and inertia.
     private float currentSpeed = 0f;
     // This variable controls if gameobject should accelerate or stop.
@@ -34,18 +32,37 @@ public class IngredientMovement : MonoBehaviour
     [Tooltip("Array contains all the waypoints this gameobject should go through.")] public Transform[] waypoints;
     // Points to which waypoint is currently active 
     private int waypointIndexPointer = 0;
+    public int WaypointIndexPointer { set { waypointIndexPointer = value; } get { return waypointIndexPointer; } }
+    bool delayEnabled = false;
+    float delayTimeElapsed;
     
     void Start()
     {
+        delayTimeElapsed = 0f;
         functionState = true;
         waypointIndexPointer = 0;
-        waypoints = GetComponentInParent<WaypointList>().Waypoints;
+        waypoints = GetComponentInParent<IngredientMovementAnimation>().Waypoints;
     }
 
     void Update()
     {
+        if(delayEnabled)
+        {
+            if(delayTimeElapsed < stopTime)
+            {
+                delayTimeElapsed += Time.deltaTime;
+                return;
+            }
+            else
+            {
+                delayTimeElapsed = 0f;
+                delayEnabled = false;
+            }
+        }
+
         if(waypointIndexPointer <= 2)
         {
+            // Keep the gameobject pointed towards the next/active waypoint
             waypoint = waypoints[waypointIndexPointer];
             // Accelerate if functionState is TRUE
             if(functionState)
@@ -57,8 +74,11 @@ public class IngredientMovement : MonoBehaviour
             {
                 Decelerate();
             }
-            // Keep the gameobject pointed towards the next/active waypoint
-            //waypoint = waypoints[waypointIndexPointer];
+        }
+        else
+        {
+            // Send message to parent 
+            enabled = false;
         }
     }
 
@@ -78,20 +98,9 @@ public class IngredientMovement : MonoBehaviour
             slowState = false;
         }
 
-        // If there is a waypoint
-        /*if(waypoint)
-        {
-            // Rotate the gameobject towards the waypoint
-            var rotation = Quaternion.LookRotation(waypoint.position - flyingGameObject.transform.position);
-            // Smoothen the rotation
-            flyingGameObject.transform.rotation = Quaternion.Slerp(flyingGameObject.transform.rotation, rotation, Time.deltaTime * rotationDamping);
-        }*/
         // Accelerate towards waypoint. Accelerate until speed limit reached
         currentSpeed += acceleration * acceleration;
-        print(waypoint);
-        //print(flyingGameObject);
         Vector3 distance = Vector3.Normalize(waypoint.position - transform.position);
-        //flyingGameObject.transform.Translate(0, 0, Time.deltaTime * currentSpeed);
         transform.Translate(distance * currentSpeed * Time.deltaTime);
 
         // If current speed exceed speed limit, then clamp it to speed limit
@@ -117,9 +126,9 @@ public class IngredientMovement : MonoBehaviour
         {
             currentSpeed = 0f;
             // Add time delay here 
+            if(waypointIndexPointer <= 2)
+                delayEnabled = true;
             functionState = true;
         } 
     }
-
-
 }
