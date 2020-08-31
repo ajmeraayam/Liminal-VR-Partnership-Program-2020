@@ -77,8 +77,9 @@ public class IngredientMovement : MonoBehaviour
         }
         else
         {
-            // Send message to parent 
-            enabled = false;
+            // Send message to parent
+            waypointIndexPointer = 0;
+            GetComponentInParent<IngredientMovementAnimation>().StopAnimation();
         }
     }
 

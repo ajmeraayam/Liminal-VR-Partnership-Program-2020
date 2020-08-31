@@ -59,6 +59,18 @@ public class ControllerScript : MonoBehaviour
         {
             hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
         }
+        else if(hit.gameObject.CompareTag("Mineral"))
+        {
+            hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+        }
+        else if(hit.gameObject.CompareTag("Mushroom"))
+        {
+            hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+        }
+        else if(hit.gameObject.CompareTag("Magic item"))
+        {
+            hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+        }
     }
 
     //Disable or enable input from the controller
