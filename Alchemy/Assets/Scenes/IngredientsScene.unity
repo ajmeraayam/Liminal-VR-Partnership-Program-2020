@@ -207,6 +207,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pot
       objectReference: {fileID: 0}
+    - target: {fileID: 4117254420344814583, guid: c3df14a5ed2da1a4db4a3833a0d4e705,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3df14a5ed2da1a4db4a3833a0d4e705, type: 3}
 --- !u!1001 &202323684
@@ -1102,9 +1107,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b33ab5dafb8a6d847ae191fc273013d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1610508361}
+  target: {fileID: 1738377132}
   firingAngle: 70
-  gravity: 7
+  gravity: 9.8
   projectile: {fileID: 284232945}
 --- !u!54 &1421963833
 Rigidbody:
@@ -1206,12 +1211,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4689789360426757630, guid: 13de9d7502892ab4ca3d3f68939f21de,
     type: 3}
   m_PrefabInstance: {fileID: 1538177486}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1610508361 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 931202340478426180, guid: c3df14a5ed2da1a4db4a3833a0d4e705,
-    type: 3}
-  m_PrefabInstance: {fileID: 30163587}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1640706086
 PrefabInstance:
@@ -1377,6 +1376,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbee1b045b6764160a91237fbee4a59e, type: 3}
+--- !u!4 &1738377132 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4117254420344814583, guid: c3df14a5ed2da1a4db4a3833a0d4e705,
+    type: 3}
+  m_PrefabInstance: {fileID: 30163587}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1740051085
 PrefabInstance:
   m_ObjectHideFlags: 0

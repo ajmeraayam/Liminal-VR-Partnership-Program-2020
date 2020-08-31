@@ -29,7 +29,7 @@ public class IngredientMovement : MonoBehaviour
 
     IEnumerator SimulateProjectile()
     {
-        yield return new WaitForSeconds(1.5f);
+        //yield return new WaitForSeconds(1.5f);
         projectile.position = myTransform.position + new Vector3(0f, 0f, 0f);
         float target_distance = Vector3.Distance(projectile.position, target.position);
 
