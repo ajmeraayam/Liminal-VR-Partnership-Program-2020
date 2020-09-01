@@ -28,6 +28,8 @@ public class IngredientMovementAnimation : MonoBehaviour
         // For animation, enable colliders and the script for movement
         EnableWaypoints(true);
         script.enabled = true;
+        //Send message to disable inputs from the controller when ladle is moving
+        controllerScript.SendMessage("DisableInput", true);
     }
 
     public void StopAnimation()
@@ -35,6 +37,8 @@ public class IngredientMovementAnimation : MonoBehaviour
         // Disable colliders and movement script when animation complete
         EnableWaypoints(false);
         script.enabled = false;
+        //Send message to disable inputs from the controller when ladle is moving
+        controllerScript.SendMessage("DisableInput", false);
     }
 
     private void EnableWaypoints(bool value)
