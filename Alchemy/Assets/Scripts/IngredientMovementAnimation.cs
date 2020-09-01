@@ -10,10 +10,12 @@ public class IngredientMovementAnimation : MonoBehaviour
     public Transform[] Waypoints { get { return waypoints; } }
     // Ingredient Movement script attained from the children
     public IngredientMovement script;
-
+    private ControllerScript controllerScript;
 
     void Start()
     {
+        //Cache the controller script to access it quickly
+        controllerScript = GameObject.Find("VRAvatar").GetComponent<ControllerScript>();
         // Find the script in children and disable it
         script = GetComponentInChildren<IngredientMovement>();
         script.enabled = false;

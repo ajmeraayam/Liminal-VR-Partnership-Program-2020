@@ -6,7 +6,6 @@ public class LadleAnimation : MonoBehaviour
 {
     private float timeCounter = 0f;
     private float radius = 0.30f;
-    private bool clickBlocked = false;
     private Vector3 startPosition;
     private ControllerScript controllerScript;
 

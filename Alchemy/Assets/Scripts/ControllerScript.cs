@@ -11,6 +11,7 @@ public class ControllerScript : MonoBehaviour
 {
     //To disable input if needed
     bool disableInput = false;
+    bool gameStarted = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,30 +47,41 @@ public class ControllerScript : MonoBehaviour
     //Handles the input and actions to taken when button is clicked
     private void OnControllerButtonClick(UnityEngine.EventSystems.RaycastResult hit)
     {
-        //If ladle is clicked, then execute ladle animation
-        if(hit.gameObject.CompareTag("Ladle"))
+        if(gameStarted)
         {
-            hit.gameObject.GetComponent<LadleAnimation>().WhenClicked();
+            //If ladle is clicked, then execute ladle animation
+            if(hit.gameObject.CompareTag("Ladle"))
+            {
+                hit.gameObject.GetComponent<LadleAnimation>().WhenClicked();
+            }
+            else if(hit.gameObject.CompareTag("Pot"))
+            {
+                GameObject.FindWithTag("Ladle").GetComponent<LadleAnimation>().WhenClicked();
+            }
+            else if(hit.gameObject.CompareTag("Herb"))
+            {
+                hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+            }
+            else if(hit.gameObject.CompareTag("Mineral"))
+            {
+                hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+            }
+            else if(hit.gameObject.CompareTag("Mushroom"))
+            {
+                hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+            }
+            else if(hit.gameObject.CompareTag("Magic item"))
+            {
+                hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+            }   
         }
-        else if(hit.gameObject.CompareTag("Fire"))
+        else
         {
-            hit.gameObject.GetComponent<FireGenerator>().startFire();
-        }
-        else if(hit.gameObject.CompareTag("Herb"))
-        {
-            hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
-        }
-        else if(hit.gameObject.CompareTag("Mineral"))
-        {
-            hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
-        }
-        else if(hit.gameObject.CompareTag("Mushroom"))
-        {
-            hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
-        }
-        else if(hit.gameObject.CompareTag("Magic item"))
-        {
-            hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+            if(hit.gameObject.CompareTag("Fire"))
+            {
+                hit.gameObject.GetComponent<FireGenerator>().startFire();
+                gameStarted = true;
+            }
         }
     }
 
