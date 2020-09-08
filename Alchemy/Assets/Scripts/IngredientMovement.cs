@@ -83,11 +83,15 @@ public class IngredientMovement : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter()
+    void OnTriggerEnter(Collider other)
     {
         // When gameobject hits the waypoint's collider, start deceleration and activate next waypoint 
         functionState = false;
-        waypointIndexPointer++;
+        // Prevent waypoint index pointer to increment when gameobject collides multiple times with same waypoint
+        if(other.name == waypoint.name)
+        {
+            waypointIndexPointer++;
+        }
     }
 
     private void Accelerate()

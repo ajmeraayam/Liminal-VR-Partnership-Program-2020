@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2195730712465360547}
   - component: {fileID: 5830217310777690962}
   - component: {fileID: 4969597890712802320}
-  - component: {fileID: 4753403391758185567}
   - component: {fileID: 2367693134077818486}
   - component: {fileID: 8443411583953717027}
+  - component: {fileID: 8157840533299883593}
   m_Layer: 0
   m_Name: Magic Powder
   m_TagString: Untagged
@@ -81,20 +81,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &4753403391758185567
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4417997898904979393}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: 126fe521c58ee3d4b83b8a77061ad0b3, type: 3}
 --- !u!54 &2367693134077818486
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -131,6 +117,19 @@ MonoBehaviour:
   rotationDamping: 6
   smoothRotation: 1
   waypoints: []
+--- !u!65 &8157840533299883593
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4417997898904979393}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6487749, y: 0.1606468, z: 0.6074482}
+  m_Center: {x: 0.000000029802322, y: 0.08459526, z: 0.0027640462}
 --- !u!1001 &4598255466760617605
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -203,6 +202,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 078a76d0ffa1da24ebde2f39907544da, type: 2}
+    - target: {fileID: 943225749736054452, guid: a6c0b289d8f137940b89b3020b312c59,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6c0b289d8f137940b89b3020b312c59, type: 3}
 --- !u!4 &1769814444707118124 stripped
