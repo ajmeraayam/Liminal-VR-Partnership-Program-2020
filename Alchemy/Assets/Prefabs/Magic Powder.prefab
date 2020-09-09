@@ -148,7 +148,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -4823,6 +4823,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2195730712465360547}
     m_Modifications:
+    - target: {fileID: 7514217103101008323, guid: a6c0b289d8f137940b89b3020b312c59,
+        type: 3}
+      propertyPath: m_Name
+      value: Powder_Dish_01
+      objectReference: {fileID: 0}
     - target: {fileID: 2837245913756123817, guid: a6c0b289d8f137940b89b3020b312c59,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4878,21 +4883,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7514217103101008323, guid: a6c0b289d8f137940b89b3020b312c59,
+    - target: {fileID: 943225749736054452, guid: a6c0b289d8f137940b89b3020b312c59,
         type: 3}
-      propertyPath: m_Name
-      value: Powder_Dish_01
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7542154128454664974, guid: a6c0b289d8f137940b89b3020b312c59,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 078a76d0ffa1da24ebde2f39907544da, type: 2}
-    - target: {fileID: 943225749736054452, guid: a6c0b289d8f137940b89b3020b312c59,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6c0b289d8f137940b89b3020b312c59, type: 3}
 --- !u!4 &1769814444707118124 stripped

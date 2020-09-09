@@ -10,6 +10,7 @@ public class IngredientMovementAnimation : MonoBehaviour
     public Transform[] Waypoints { get { return waypoints; } }
     // Ingredient Movement script attained from the children
     public IngredientMovement ingredientScript;
+    public ParticleSystem ingredientParticleSystem;
     private ControllerScript controllerScript;
 
     void Start()
@@ -18,7 +19,9 @@ public class IngredientMovementAnimation : MonoBehaviour
         controllerScript = GameObject.Find("VRAvatar").GetComponent<ControllerScript>();
         // Find the script in children and disable it
         ingredientScript = GetComponentInChildren<IngredientMovement>();
+        ingredientParticleSystem = GetComponentInChildren<ParticleSystem>();
         ingredientScript.enabled = false;
+        ingredientParticleSystem.Stop();
         // Disable colliders on the waypoints
         EnableWaypoints(false);
     }
@@ -28,6 +31,7 @@ public class IngredientMovementAnimation : MonoBehaviour
         // For animation, enable colliders and the script for movement
         EnableWaypoints(true);
         ingredientScript.enabled = true;
+        ingredientParticleSystem.Play();
         //Send message to disable inputs from the controller when ladle is moving
         controllerScript.SendMessage("DisableInput", true);
     }
@@ -37,6 +41,7 @@ public class IngredientMovementAnimation : MonoBehaviour
         // Disable colliders and movement script when animation complete
         EnableWaypoints(false);
         ingredientScript.enabled = false;
+        ingredientParticleSystem.Stop();
         //Send message to disable inputs from the controller when ladle is moving
         controllerScript.SendMessage("DisableInput", false);
     }
