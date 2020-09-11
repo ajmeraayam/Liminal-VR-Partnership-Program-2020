@@ -4,8 +4,10 @@ using UnityEngine;
 using Liminal.SDK.VR;
 using Liminal.SDK.VR.Input;
 
-/*Performance improvements - Cache methods for gameobjects (probably in hashmap) that are used often in the game. It will save the time to search for script in the gameobject. 
-Another way is to check if OnPointerClick, OnPointerDown and OnPointerUp does the job better or not
+/*
+ * Performance improvements - Cache methods for gameobjects (probably in hashmap) that are used often in the game. 
+ * It will save the time to search for script in the gameobject. 
+ * Another way is to check if OnPointerClick, OnPointerDown and OnPointerUp does the job better or not
 */
 public class ControllerScript : MonoBehaviour
 {
@@ -44,7 +46,7 @@ public class ControllerScript : MonoBehaviour
         }
     }
 
-    //Handles the input and actions to taken when button is clicked
+    //Handles the input and actions to be taken when button is clicked
     private void OnControllerButtonClick(UnityEngine.EventSystems.RaycastResult hit)
     {
         if(gameStarted)
@@ -54,22 +56,27 @@ public class ControllerScript : MonoBehaviour
             {
                 hit.gameObject.GetComponent<LadleAnimation>().WhenClicked();
             }
+            // If pot is clicked, then execute ladle animation
             else if(hit.gameObject.CompareTag("Pot"))
             {
                 GameObject.FindWithTag("Ladle").GetComponent<LadleAnimation>().WhenClicked();
             }
+            // If herb basket is clicked, execute herb movement animation
             else if(hit.gameObject.CompareTag("Herb"))
             {
                 hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
             }
+            // If mineral basket is clicked, execute mineral movement animation
             else if(hit.gameObject.CompareTag("Mineral"))
             {
                 hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
             }
+            // If mushroom basket is clicked, execute mushroom movement animation
             else if(hit.gameObject.CompareTag("Mushroom"))
             {
                 hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
             }
+            // If magic item basket is clicked, execute magic item movement animation
             else if(hit.gameObject.CompareTag("Magic item"))
             {
                 hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
@@ -77,10 +84,12 @@ public class ControllerScript : MonoBehaviour
         }
         else
         {
+            // Start the game when user clicks on firewood
             if(hit.gameObject.CompareTag("Fire"))
             {
                 hit.gameObject.GetComponent<FireGenerator>().startFire();
                 gameStarted = true;
+                GameObject.FindWithTag("Pot").GetComponent<ParticleSystem>().Play();
             }
         }
     }
