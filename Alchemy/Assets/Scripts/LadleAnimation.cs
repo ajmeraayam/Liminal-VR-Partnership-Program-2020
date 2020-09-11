@@ -6,7 +6,6 @@ public class LadleAnimation : MonoBehaviour
 {
     private float timeCounter = 0f;
     private float radius = 0.30f;
-    private bool clickBlocked = false;
     private Vector3 startPosition;
     private ControllerScript controllerScript;
 
@@ -32,6 +31,8 @@ public class LadleAnimation : MonoBehaviour
     //Invokes ladle animation for 6 seconds
     IEnumerator invokeAnimation()
     {
+        // Play ladle particle system  
+        GetComponent<ParticleSystem>().Play();
         float timePassed = 0f;
         //For 6 seconds, keep calling moveLadle method
         while(timePassed < 6f)
@@ -44,6 +45,8 @@ public class LadleAnimation : MonoBehaviour
         transform.localPosition = startPosition;
         //After 6 seconds, unblock the input so user can continue playing  
         controllerScript.SendMessage("DisableInput", false);
+        // Stop ladle particle system
+        GetComponent<ParticleSystem>().Stop();
     }
 
     //Generate the circular motion using cos and sin values.
