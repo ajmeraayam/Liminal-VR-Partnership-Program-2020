@@ -57,11 +57,13 @@ public class IngredientMovement : MonoBehaviour
             {
                 delayTimeElapsed = 0f;
                 delayEnabled = false;
+                SoundManager.Play("whoosh"); // refer to sound manager
             }
         }
 
         if(waypointIndexPointer <= 2)
         {
+            
             // Keep the gameobject pointed towards the next/active waypoint
             waypoint = waypoints[waypointIndexPointer];
             // Accelerate if functionState is TRUE
@@ -80,11 +82,13 @@ public class IngredientMovement : MonoBehaviour
             // Send message to parent
             waypointIndexPointer = 0;
             GetComponentInParent<IngredientMovementAnimation>().StopAnimation();
+            SoundManager.Play("splash"); // refer to sound manager
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
+        
         // When gameobject hits the waypoint's collider, start deceleration and activate next waypoint 
         functionState = false;
         // Prevent waypoint index pointer to increment when gameobject collides multiple times with same waypoint
@@ -96,11 +100,13 @@ public class IngredientMovement : MonoBehaviour
 
     private void Accelerate()
     {
-        if(!accelerateState)
+        
+        if (!accelerateState)
         {
             // Acceleration should work and deceleration should not
             accelerateState = true;
             slowState = false;
+            
         }
 
         // Accelerate towards waypoint. Accelerate until speed limit reached
@@ -122,6 +128,7 @@ public class IngredientMovement : MonoBehaviour
             // Deceleration should work and acceleration should not
             accelerateState = true;
             slowState = false;
+            
         }
         // Start to slow down.
         currentSpeed *= inertia;
