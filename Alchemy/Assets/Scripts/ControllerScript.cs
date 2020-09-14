@@ -54,37 +54,37 @@ public class ControllerScript : MonoBehaviour
             //If ladle is clicked, then execute ladle animation
             if(hit.gameObject.CompareTag("Ladle"))
             {
-                SoundManager.Play("stir");
+                //SoundManager.Play("stir");
                 hit.gameObject.GetComponent<LadleAnimation>().WhenClicked();
             }
             // If pot is clicked, then execute ladle animation
             else if(hit.gameObject.CompareTag("Pot"))
             {
-                SoundManager.Play("stir");
+                //SoundManager.Play("stir");
                 GameObject.FindWithTag("Ladle").GetComponent<LadleAnimation>().WhenClicked();
             }
             // If herb basket is clicked, execute herb movement animation
             else if(hit.gameObject.CompareTag("Herb"))
             {
-                SoundManager.Play("herb pickup");
+                //SoundManager.Play("herb pickup");
                 hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
             }
             // If mineral basket is clicked, execute mineral movement animation
             else if(hit.gameObject.CompareTag("Mineral"))
             {
-                SoundManager.Play("mineral pickup");
+                //SoundManager.Play("mineral pickup");
                 hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
             }
             // If mushroom basket is clicked, execute mushroom movement animation
             else if(hit.gameObject.CompareTag("Mushroom"))
             {
-                SoundManager.Play("mushroom pickup");
+                //SoundManager.Play("mushroom pickup");
                 hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
             }
             // If magic item basket is clicked, execute magic item movement animation
             else if(hit.gameObject.CompareTag("Magic item"))
             {
-                SoundManager.Play("magic pickup");
+                //SoundManager.Play("magic pickup");
                 hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
             }   
         }
@@ -93,7 +93,7 @@ public class ControllerScript : MonoBehaviour
             // Start the game when user clicks on firewood
             if(hit.gameObject.CompareTag("Fire"))
             {
-                SoundManager.Play("flick");
+                //SoundManager.Play("flick");
                 hit.gameObject.GetComponent<FireGenerator>().startFire();
                 gameStarted = true;
                 GameObject.FindWithTag("Pot").GetComponent<ParticleSystem>().Play();
