@@ -35,6 +35,11 @@ public class IngredientMovement : MonoBehaviour
     public int WaypointIndexPointer { set { waypointIndexPointer = value; } get { return waypointIndexPointer; } }
     bool delayEnabled = false;
     float delayTimeElapsed;
+    AudioSource source;
+    public AudioClip pickupClip;
+    public AudioClip whooshClip;
+    public AudioClip splashClip;
+    private bool whooshPlayed, pickupPlayed;
     
     void Start()
     {
@@ -42,6 +47,9 @@ public class IngredientMovement : MonoBehaviour
         functionState = true;
         waypointIndexPointer = 0;
         waypoints = GetComponentInParent<IngredientMovementAnimation>().Waypoints;
+        source = GetComponent<AudioSource>();
+        whooshPlayed = false;
+        pickupPlayed = false;
     }
 
     void Update()
@@ -57,11 +65,23 @@ public class IngredientMovement : MonoBehaviour
             {
                 delayTimeElapsed = 0f;
                 delayEnabled = false;
+                // Play whoosh audio clip when moving through waypoints
+                if((waypointIndexPointer == 1 || waypointIndexPointer == 2) && !whooshPlayed)
+                {
+                    source.PlayOneShot(whooshClip);
+                    whooshPlayed = true;
+                }
             }
         }
 
         if(waypointIndexPointer <= 2)
         {
+            // Play pickup audio clip
+            if(waypointIndexPointer == 0 && !pickupPlayed)
+            {
+                source.PlayOneShot(pickupClip);
+                pickupPlayed = true;
+            }
             // Keep the gameobject pointed towards the next/active waypoint
             waypoint = waypoints[waypointIndexPointer];
             // Accelerate if functionState is TRUE
@@ -79,28 +99,33 @@ public class IngredientMovement : MonoBehaviour
         {
             // Send message to parent
             waypointIndexPointer = 0;
+            source.PlayOneShot(splashClip);
             GetComponentInParent<IngredientMovementAnimation>().StopAnimation();
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
+        
         // When gameobject hits the waypoint's collider, start deceleration and activate next waypoint 
         functionState = false;
         // Prevent waypoint index pointer to increment when gameobject collides multiple times with same waypoint
         if(other.name == waypoint.name)
         {
             waypointIndexPointer++;
+            pickupPlayed = false;
+            whooshPlayed = false;
         }
     }
 
     private void Accelerate()
     {
-        if(!accelerateState)
+        if (!accelerateState)
         {
             // Acceleration should work and deceleration should not
             accelerateState = true;
             slowState = false;
+            
         }
 
         // Accelerate towards waypoint. Accelerate until speed limit reached
@@ -122,6 +147,7 @@ public class IngredientMovement : MonoBehaviour
             // Deceleration should work and acceleration should not
             accelerateState = true;
             slowState = false;
+            
         }
         // Start to slow down.
         currentSpeed *= inertia;

@@ -8,6 +8,8 @@ public class LadleAnimation : MonoBehaviour
     private float radius = 0.30f;
     private Vector3 startPosition;
     private ControllerScript controllerScript;
+    AudioSource source;
+    AudioClip clip;
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +17,8 @@ public class LadleAnimation : MonoBehaviour
         startPosition = transform.localPosition;
         //Cache the controller script to access it quickly
         controllerScript = GameObject.Find("VRAvatar").GetComponent<ControllerScript>();
+        source = GetComponent<AudioSource>();
+        clip = Resources.Load<AudioClip>("stir");
     }
 
     public void WhenClicked()
@@ -37,6 +41,8 @@ public class LadleAnimation : MonoBehaviour
         //For 6 seconds, keep calling moveLadle method
         while(timePassed < 6f)
         {
+            if(!source.isPlaying)
+                source.PlayOneShot(clip);
             Invoke("moveLadle", 0.0001f);
             timePassed += Time.deltaTime;
             yield return null;

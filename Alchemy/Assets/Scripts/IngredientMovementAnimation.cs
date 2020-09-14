@@ -24,7 +24,8 @@ public class IngredientMovementAnimation : MonoBehaviour
         foreach(Transform child in gameObject.transform)
         {
             if(child.tag == "Splash")
-                splashParticleSystem = child.GetComponent<ParticleSystem>();
+                
+            splashParticleSystem = child.GetComponent<ParticleSystem>();
 
             if(child.tag == "Ingredient")
                 ingredientParticleSystem = child.GetComponent<ParticleSystem>();
