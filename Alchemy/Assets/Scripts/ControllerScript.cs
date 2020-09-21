@@ -180,6 +180,7 @@ public class ControllerScript : MonoBehaviour
             {
                 StartCoroutine(failedRecipe());
             }
+            actionsTaken = 0;
         }
         else
             return;
