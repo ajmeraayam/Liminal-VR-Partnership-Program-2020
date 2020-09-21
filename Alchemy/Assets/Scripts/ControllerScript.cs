@@ -14,6 +14,7 @@ public class ControllerScript : MonoBehaviour
 {
     //To disable input if needed
     bool disableInput = false;
+    bool disableRecipeCoroutine = false;
     bool gameStarted = false;
     private GameObject gameManager;
     private LevelHandler levelHandler;
@@ -23,6 +24,8 @@ public class ControllerScript : MonoBehaviour
     int actionsTaken;
     int maxActionsForThisRecipe;
     string[] recordedActions;
+    public GameObject[] baskets;
+    private IngredientMovementAnimation[] basketScripts;
 
     void Start()
     {
@@ -33,6 +36,8 @@ public class ControllerScript : MonoBehaviour
         actionsTaken = 0;
         maxActionsForThisRecipe = 0;
         recordedActions = new string[0];
+        basketScripts = new IngredientMovementAnimation[baskets.Length];
+        InitializeBasketScripts();
     }
 
     // Update is called once per frame
@@ -127,11 +132,20 @@ public class ControllerScript : MonoBehaviour
         }
     }
 
+    private void InitializeBasketScripts()
+    {
+        for(int i = 0; i < baskets.Length; i++)
+        {
+            basketScripts[i] = baskets[i].GetComponent<IngredientMovementAnimation>();
+        }
+    }
+
     // Gets new recipe from the level handler and stores the recipe in an array. Also, gets the maximum
     // number of actions that will complete this recipe.
     // Also creates an array to record the actions (ingredients and pot/ladle) taken by the player.
     private void generateNewRecipe()
     {
+        levelHandler.recipeGeneratable();
         levelHandler.generateNewRecipe();
         currentRecipe = levelHandler.getCurrentRecipe();
         maxActionsForThisRecipe = levelHandler.getMaxActions();
@@ -177,15 +191,25 @@ public class ControllerScript : MonoBehaviour
         disableInput = value;
     }
 
+    void DisableRecipeCoroutine(bool value)
+    {
+        disableRecipeCoroutine = value;
+    }
+
     // If recipe is successful then increment the score, show the response through particle system and 
     // generate new recipe. 
     IEnumerator successfulRecipe()
     {
+        while(disableRecipeCoroutine)
+            yield return new WaitForSeconds(0.1f);
+        
         DisableInput(true);
         levelHandler.correctRecipe();
         yield return new WaitForSeconds(0.5f);
         // Play success particles
         particles.PlaySuccessParticles();
+        yield return new WaitForSeconds(1.0f);
+        ResetAllLocations();
         // generate new recipe and show on board
         generateNewRecipe();
         DisableInput(false);
@@ -195,16 +219,22 @@ public class ControllerScript : MonoBehaviour
     // generate new recipe.
     IEnumerator failedRecipe()
     {
+        while(disableRecipeCoroutine)
+            yield return new WaitForSeconds(0.1f);
+        
         DisableInput(true);
         levelHandler.wrongRecipe();
         yield return new WaitForSeconds(0.5f);
         // Play failure particles
         particles.PlayFailureParticles();
+        yield return new WaitForSeconds(1.0f);
+        ResetAllLocations();
         // generate new recipe and show on board
         generateNewRecipe();
         DisableInput(false);
     }
     
+    // Convert the recipe array into a string (For testing purposes)
     private string recipeToString()
     {
         StringBuilder text = new StringBuilder("Recipe - ");
@@ -214,5 +244,14 @@ public class ControllerScript : MonoBehaviour
         }
         text.Append(currentRecipe[currentRecipe.Length - 1]);
         return text.ToString();
+    }
+
+    // Reset location of all ingredients to their respective baskets
+    private void ResetAllLocations()
+    {
+        for(int i = 0; i < basketScripts.Length; i++)
+        {
+            basketScripts[i].ResetIngredientLocation();
+        }
     }
 }

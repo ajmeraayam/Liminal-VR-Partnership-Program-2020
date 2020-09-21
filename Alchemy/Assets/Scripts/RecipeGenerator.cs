@@ -13,10 +13,6 @@ public class RecipeGenerator : MonoBehaviour
     {
         // Get all the recipes first
         ExtractAll();
-        //For example (recipeCache[0], 0) means level1, first recipe
-        ExtractRecipe(recipeCache[0], 0);
-        //for example, get random recipe in level 4
-        GetRandomRecipe(3);
     }
 
     //Get all the recipes
@@ -67,9 +63,9 @@ public class RecipeGenerator : MonoBehaviour
     public string[] GetRandomRecipe(int level) 
     {
         // Generate a recipe index. Random index should be between 0 and number of recipes - 1
-        int numRecipe = UnityEngine.Random.Range(0, recipeCache[level].Length - 1);
+        int numRecipe = UnityEngine.Random.Range(0, recipeCache[level - 1].Length - 1);
         // Return the recipe at given index
-        return ExtractRecipe(recipeCache[level], numRecipe);
+        return ExtractRecipe(recipeCache[level - 1], numRecipe);
     }
 
 }

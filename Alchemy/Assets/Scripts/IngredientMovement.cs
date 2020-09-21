@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class IngredientMovement : MonoBehaviour
 {
+    private Vector3 localPos;
     // The rate at which the gameobject will accelerate to the next waypoint. It will stop accelerating when speed limit is reached
     [Tooltip("The rate at which the gameobject will accelerate to the next waypoint. It will stop accelerating when speed limit is reached.")] public float acceleration = 0.8f;
     // The rate of deceleration. Lower values will bring gameobject to a faster halt. Value of 1.0 will never stop. Values greater than 1.0 will accelerate more. 
@@ -40,16 +41,19 @@ public class IngredientMovement : MonoBehaviour
     public AudioClip whooshClip;
     public AudioClip splashClip;
     private bool whooshPlayed, pickupPlayed;
+    private IngredientMovementAnimation movAnimationScript;
     
     void Start()
     {
         delayTimeElapsed = 0f;
         functionState = true;
         waypointIndexPointer = 0;
-        waypoints = GetComponentInParent<IngredientMovementAnimation>().Waypoints;
+        movAnimationScript = GetComponentInParent<IngredientMovementAnimation>();
+        waypoints = movAnimationScript.Waypoints;
         source = GetComponent<AudioSource>();
         whooshPlayed = false;
         pickupPlayed = false;
+        localPos = transform.localPosition;
     }
 
     void Update()
@@ -100,7 +104,7 @@ public class IngredientMovement : MonoBehaviour
             // Send message to parent
             waypointIndexPointer = 0;
             source.PlayOneShot(splashClip);
-            GetComponentInParent<IngredientMovementAnimation>().StopAnimation();
+            movAnimationScript.StopAnimation();
         }
     }
 
@@ -161,5 +165,10 @@ public class IngredientMovement : MonoBehaviour
                 delayEnabled = true;
             functionState = true;
         } 
+    }
+
+    public void ResetLocation()
+    {
+        transform.localPosition = localPos;
     }
 }
