@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Text;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Liminal.SDK.VR;
@@ -126,17 +127,23 @@ public class ControllerScript : MonoBehaviour
         }
     }
 
-    void generateNewRecipe()
+    // Gets new recipe from the level handler and stores the recipe in an array. Also, gets the maximum
+    // number of actions that will complete this recipe.
+    // Also creates an array to record the actions (ingredients and pot/ladle) taken by the player.
+    private void generateNewRecipe()
     {
         levelHandler.generateNewRecipe();
         currentRecipe = levelHandler.getCurrentRecipe();
         maxActionsForThisRecipe = levelHandler.getMaxActions();
         recordedActions = new string[maxActionsForThisRecipe];
         // Add calls to recipe board (For display purposes)
+        print(recipeToString());
     }
 
-
-    void checkActions()
+    // After every click on ingredients or pot, check if user has completed specified number of actions.
+    // If so, check if they made a correct recipe or not.
+    // Show particles and animations according to the outcome.
+    private void checkActions()
     {
         if(actionsTaken == maxActionsForThisRecipe)
         {
@@ -153,13 +160,11 @@ public class ControllerScript : MonoBehaviour
 
             if(success)
             {
-                levelHandler.correctRecipe();
-                particles.PlaySuccessParticles();
+                StartCoroutine(successfulRecipe());
             }
             else
             {
-                levelHandler.wrongRecipe();
-                particles.PlayFailureParticles();
+                StartCoroutine(failedRecipe());
             }
         }
         else
@@ -172,4 +177,42 @@ public class ControllerScript : MonoBehaviour
         disableInput = value;
     }
 
+    // If recipe is successful then increment the score, show the response through particle system and 
+    // generate new recipe. 
+    IEnumerator successfulRecipe()
+    {
+        DisableInput(true);
+        levelHandler.correctRecipe();
+        yield return new WaitForSeconds(0.5f);
+        // Play success particles
+        particles.PlaySuccessParticles();
+        // generate new recipe and show on board
+        generateNewRecipe();
+        DisableInput(false);
+    }
+
+    // If recipe is unsuccessful then update the score system, show the response through particle system and 
+    // generate new recipe.
+    IEnumerator failedRecipe()
+    {
+        DisableInput(true);
+        levelHandler.wrongRecipe();
+        yield return new WaitForSeconds(0.5f);
+        // Play failure particles
+        particles.PlayFailureParticles();
+        // generate new recipe and show on board
+        generateNewRecipe();
+        DisableInput(false);
+    }
+    
+    private string recipeToString()
+    {
+        StringBuilder text = new StringBuilder("Recipe - ");
+        for(int i = 0; i < currentRecipe.Length - 1; i++)
+        {
+            text.Append(currentRecipe[i] + " + ");
+        }
+        text.Append(currentRecipe[currentRecipe.Length - 1]);
+        return text.ToString();
+    }
 }

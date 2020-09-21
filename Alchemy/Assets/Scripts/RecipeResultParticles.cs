@@ -14,27 +14,11 @@ public class RecipeResultParticles : MonoBehaviour
 
     public void PlaySuccessParticles()
     {
-        controllerScript.SendMessage("DisableInput", true);
-        StartCoroutine(SuccessParticles());
+        success.Play();
     }
 
     public void PlayFailureParticles()
     {
-        controllerScript.SendMessage("DisableInput", true);
-        StartCoroutine(FailureParticles());
-    }
-
-    IEnumerator SuccessParticles()
-    {
-        yield return new WaitForSeconds(0.5f);
-        success.Play();
-        controllerScript.SendMessage("DisableInput", false);
-    }
-
-    IEnumerator FailureParticles()
-    {
-        yield return new WaitForSeconds(0.5f);
         fail.Play();
-        controllerScript.SendMessage("DisableInput", false);
     }
 }
