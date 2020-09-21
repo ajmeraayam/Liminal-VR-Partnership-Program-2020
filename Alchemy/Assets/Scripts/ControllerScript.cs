@@ -14,10 +14,24 @@ public class ControllerScript : MonoBehaviour
     //To disable input if needed
     bool disableInput = false;
     bool gameStarted = false;
-    // Start is called before the first frame update
+    private GameObject gameManager;
+    private LevelHandler levelHandler;
+    private GameObject success_fail_particleSystem;
+    private RecipeResultParticles particles;
+    string[] currentRecipe;
+    int actionsTaken;
+    int maxActionsForThisRecipe;
+    string[] recordedActions;
+
     void Start()
     {
-        
+        gameManager = GameObject.Find("Game Manager");
+        success_fail_particleSystem = GameObject.Find("Success Fail PS");
+        levelHandler = gameManager.GetComponent<LevelHandler>();
+        particles = success_fail_particleSystem.GetComponent<RecipeResultParticles>();
+        actionsTaken = 0;
+        maxActionsForThisRecipe = 0;
+        recordedActions = new string[0];
     }
 
     // Update is called once per frame
@@ -55,32 +69,46 @@ public class ControllerScript : MonoBehaviour
             if(hit.gameObject.CompareTag("Ladle"))
             {
                 hit.gameObject.GetComponent<LadleAnimation>().WhenClicked();
+                recordedActions[actionsTaken] = "i";
+                actionsTaken++;
             }
             // If pot is clicked, then execute ladle animation
             else if(hit.gameObject.CompareTag("Pot"))
             {
                 GameObject.FindWithTag("Ladle").GetComponent<LadleAnimation>().WhenClicked();
+                recordedActions[actionsTaken] = "i";
+                actionsTaken++;
             }
             // If herb basket is clicked, execute herb movement animation
             else if(hit.gameObject.CompareTag("Herb"))
             {
                 hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+                recordedActions[actionsTaken] = "h";
+                actionsTaken++;
             }
             // If mineral basket is clicked, execute mineral movement animation
             else if(hit.gameObject.CompareTag("Mineral"))
             {
                 hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+                recordedActions[actionsTaken] = "m";
+                actionsTaken++;
             }
             // If mushroom basket is clicked, execute mushroom movement animation
             else if(hit.gameObject.CompareTag("Mushroom"))
             {
                 hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+                recordedActions[actionsTaken] = "u";
+                actionsTaken++;
             }
             // If magic item basket is clicked, execute magic item movement animation
             else if(hit.gameObject.CompareTag("Magic item"))
             {
                 hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
-            }   
+                recordedActions[actionsTaken] = "g";
+                actionsTaken++;
+            }
+
+            checkActions();
         }
         else
         {
@@ -91,8 +119,51 @@ public class ControllerScript : MonoBehaviour
                 hit.gameObject.GetComponent<FireGenerator>().startFire();
                 gameStarted = true;
                 GameObject.FindWithTag("Pot").GetComponent<ParticleSystem>().Play();
+                actionsTaken = 0;
+                maxActionsForThisRecipe = 0;
+                generateNewRecipe();
             }
         }
+    }
+
+    void generateNewRecipe()
+    {
+        levelHandler.generateNewRecipe();
+        currentRecipe = levelHandler.getCurrentRecipe();
+        maxActionsForThisRecipe = levelHandler.getMaxActions();
+        recordedActions = new string[maxActionsForThisRecipe];
+        // Add calls to recipe board (For display purposes)
+    }
+
+
+    void checkActions()
+    {
+        if(actionsTaken == maxActionsForThisRecipe)
+        {
+            bool success = true;
+            // Successful or unsuccessful 
+            for(int i = 0; i < currentRecipe.Length; i++)
+            {
+                if(!Equals(currentRecipe[i], recordedActions[i]))
+                {
+                    success = false;
+                    break;
+                }
+            }
+
+            if(success)
+            {
+                levelHandler.correctRecipe();
+                particles.PlaySuccessParticles();
+            }
+            else
+            {
+                levelHandler.wrongRecipe();
+                particles.PlayFailureParticles();
+            }
+        }
+        else
+            return;
     }
 
     //Disable or enable input from the controller

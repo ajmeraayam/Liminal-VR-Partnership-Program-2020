@@ -10,7 +10,18 @@ public class LevelHandler : MonoBehaviour
     private int consecWrongStreak;
     // TRUE if last recipe was correct, FALSE otherwise
     private bool lastRecipe;
+    private RecipeGenerator recipeGenerator;
+    private string[] recipe;
+    bool isRecipeGeneratable;
+    int maxActions;
 
+    void Start()
+    {
+        recipeGenerator = GetComponent<RecipeGenerator>();
+        isRecipeGeneratable = true;
+        currentRecipeLevel = 1;
+        maxActions = 0;
+    }
 
     // Manages level of recipes to be generated
     public void changeRecipeLevel()
@@ -87,6 +98,7 @@ public class LevelHandler : MonoBehaviour
         {
             consecWrongStreak++;
             lastRecipe = false;
+            changeRecipeLevel();
         }
         else
         {
@@ -101,14 +113,40 @@ public class LevelHandler : MonoBehaviour
     {
         if(lastRecipe)
         {
-            correctRecipe++;
-            lastRecipe = false;
+            correctStreak++;
+            lastRecipe = true;
+            changeRecipeLevel();
         }
         else
         {
             consecWrongStreak = 0;
-            correctRecipe = 1;
-            lastRecipe = false;
+            correctStreak = 1;
+            lastRecipe = true;
         }
+    }
+    
+    public void generateNewRecipe()
+    {
+        if(isRecipeGeneratable)
+        {
+            recipe = recipeGenerator.GetRandomRecipe(currentRecipeLevel);
+            isRecipeGeneratable = false;
+            maxActions = recipe.Length;
+        }
+    }
+
+    public string[] getCurrentRecipe()
+    {
+        return recipe;
+    }
+
+    public int getMaxActions()
+    {
+        return maxActions;
+    }
+
+    public void recipeGeneratable()
+    {
+        isRecipeGeneratable = true;
     }
 }
