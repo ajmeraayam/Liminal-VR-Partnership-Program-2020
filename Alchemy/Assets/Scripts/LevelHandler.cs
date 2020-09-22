@@ -7,6 +7,9 @@ public class LevelHandler : MonoBehaviour
     // Stores the current level (1 to 5)
     private int currentRecipeLevel;
     private int correctStreak;
+    private int score;
+    public int CorrectStreak { get { return correctStreak;} }
+    public int Score { get {return score; } }
     private int consecWrongStreak;
     // TRUE if last recipe was correct, FALSE otherwise
     private bool lastRecipe;
@@ -21,6 +24,7 @@ public class LevelHandler : MonoBehaviour
         isRecipeGeneratable = true;
         currentRecipeLevel = 1;
         maxActions = 0;
+        score = 0;
     }
 
     // Manages level of recipes to be generated
@@ -123,6 +127,7 @@ public class LevelHandler : MonoBehaviour
             correctStreak = 1;
             lastRecipe = true;
         }
+        score++;
     }
     
     public void generateNewRecipe()

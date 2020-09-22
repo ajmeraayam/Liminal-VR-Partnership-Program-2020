@@ -344,8 +344,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 065c4ecfeb330de419a9b92bdc5fe02a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  successObject: {fileID: 100002, guid: a9115ed6e780c474f9e62bba3de1589a, type: 3}
-  failObject: {fileID: 100002, guid: 7c303995184763e43855f5f719be8fc2, type: 3}
 --- !u!1001 &327998217
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1130,6 +1128,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8100615174808445331, guid: bff05405098121949b538a20cb2d12cf,
+        type: 3}
+      propertyPath: acceleration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8100615174808445331, guid: bff05405098121949b538a20cb2d12cf,
+        type: 3}
+      propertyPath: inertia
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8100615174808445331, guid: bff05405098121949b538a20cb2d12cf,
+        type: 3}
+      propertyPath: stopTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8100615174808445331, guid: bff05405098121949b538a20cb2d12cf,
+        type: 3}
+      propertyPath: speedLimit
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bff05405098121949b538a20cb2d12cf, type: 3}
