@@ -14,6 +14,8 @@ public class LevelHandler : MonoBehaviour
     // TRUE if last recipe was correct, FALSE otherwise
     private bool lastRecipe;
     private RecipeGenerator recipeGenerator;
+    private RecipeCompletionTimer completionTimer;
+    private RecipeDisappearTimer disappearTimer;
     private string[] recipe;
     bool isRecipeGeneratable;
     int maxActions;
@@ -21,6 +23,8 @@ public class LevelHandler : MonoBehaviour
     void Start()
     {
         recipeGenerator = GetComponent<RecipeGenerator>();
+        completionTimer = GetComponent<RecipeCompletionTimer>();
+        disappearTimer = GetComponent<RecipeDisappearTimer>();
         isRecipeGeneratable = true;
         currentRecipeLevel = 1;
         maxActions = 0;
@@ -93,6 +97,8 @@ public class LevelHandler : MonoBehaviour
                 consecWrongStreak = 0;
             }
         }
+        completionTimer.UpdateLevel(currentRecipeLevel);
+        disappearTimer.UpdateLevel(currentRecipeLevel);
     }
 
     // Call this method when player makes a wrong recipe. This method will take care of streaks of potions

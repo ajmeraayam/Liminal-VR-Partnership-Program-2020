@@ -26,6 +26,7 @@ public class ControllerScript : MonoBehaviour
     string[] recordedActions;
     public GameObject[] baskets;
     private IngredientMovementAnimation[] basketScripts;
+    private RecipeCompletionTimer completionTimerScript;
 
     void Start()
     {
@@ -38,6 +39,7 @@ public class ControllerScript : MonoBehaviour
         recordedActions = new string[0];
         basketScripts = new IngredientMovementAnimation[baskets.Length];
         InitializeBasketScripts();
+        completionTimerScript = gameManager.GetComponent<RecipeCompletionTimer>();
     }
 
     // Update is called once per frame
@@ -150,6 +152,7 @@ public class ControllerScript : MonoBehaviour
         currentRecipe = levelHandler.getCurrentRecipe();
         maxActionsForThisRecipe = levelHandler.getMaxActions();
         recordedActions = new string[maxActionsForThisRecipe];
+        completionTimerScript.StartTimer();
         // Add calls to recipe board (For display purposes)
         print(recipeToString());
     }
@@ -197,6 +200,16 @@ public class ControllerScript : MonoBehaviour
         disableRecipeCoroutine = value;
     }
 
+    public void StartSuccessfulRecipeCoroutine()
+    {
+        StartCoroutine(successfulRecipe());
+    }
+
+    public void StartFailedRecipeCoroutine()
+    {
+        StartCoroutine(failedRecipe());
+    }
+
     // If recipe is successful then increment the score, show the response through particle system and 
     // generate new recipe. 
     IEnumerator successfulRecipe()
@@ -204,6 +217,7 @@ public class ControllerScript : MonoBehaviour
         while(disableRecipeCoroutine)
             yield return new WaitForSeconds(0.1f);
         
+        completionTimerScript.StopTimer();
         DisableInput(true);
         levelHandler.correctRecipe();
         yield return new WaitForSeconds(0.5f);
@@ -223,6 +237,7 @@ public class ControllerScript : MonoBehaviour
         while(disableRecipeCoroutine)
             yield return new WaitForSeconds(0.1f);
         
+        completionTimerScript.ResetTimer();
         DisableInput(true);
         levelHandler.wrongRecipe();
         yield return new WaitForSeconds(0.5f);
