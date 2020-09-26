@@ -43,7 +43,7 @@ public class RecipeCompletionTimer : MonoBehaviour
             StartCoroutine(TimerCoroutine());
     }
 
-    private void StopTimer()
+    public void StopTimer()
     {
         if(level > 1)
         {
