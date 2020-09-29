@@ -72,7 +72,7 @@ public class RecipeCompletionTimer : MonoBehaviour
 
     IEnumerator TimerCoroutine()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         disappearTimer.StartTimer();
         // Send the timer value to the display board
         while(true)
