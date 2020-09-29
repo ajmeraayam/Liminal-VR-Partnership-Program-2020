@@ -27,6 +27,7 @@ public class ControllerScript : MonoBehaviour
     public GameObject[] baskets;
     private IngredientMovementAnimation[] basketScripts;
     private RecipeCompletionTimer completionTimerScript;
+    private RecipeDisplayManager recipeDisplayScript;
 
     void Start()
     {
@@ -40,6 +41,7 @@ public class ControllerScript : MonoBehaviour
         basketScripts = new IngredientMovementAnimation[baskets.Length];
         InitializeBasketScripts();
         completionTimerScript = gameManager.GetComponent<RecipeCompletionTimer>();
+        recipeDisplayScript = gameManager.GetComponent<RecipeDisplayManager>();
     }
 
     // Update is called once per frame
@@ -150,11 +152,10 @@ public class ControllerScript : MonoBehaviour
         levelHandler.recipeGeneratable();
         levelHandler.generateNewRecipe();
         currentRecipe = levelHandler.getCurrentRecipe();
+        recipeDisplayScript.DisplayRecipeSprites(currentRecipe);
         maxActionsForThisRecipe = levelHandler.getMaxActions();
         recordedActions = new string[maxActionsForThisRecipe];
         completionTimerScript.StartTimer();
-        // Add calls to recipe board (For display purposes)
-        print(recipeToString());
     }
 
     // After every click on ingredients or pot, check if user has completed specified number of actions.
@@ -162,6 +163,7 @@ public class ControllerScript : MonoBehaviour
     // Show particles and animations according to the outcome.
     private void checkActions()
     {
+        // If all the actions are taken, then check all the actions and compare them with the recipe that was generated
         if(actionsTaken == maxActionsForThisRecipe)
         {
             bool success = true;
@@ -175,6 +177,7 @@ public class ControllerScript : MonoBehaviour
                 }
             }
 
+            // If they match then start the success coroutine. Else start failure coroutine 
             if(success)
             {
                 StartCoroutine(successfulRecipe());
@@ -195,16 +198,19 @@ public class ControllerScript : MonoBehaviour
         disableInput = value;
     }
 
+    // If true, then successful/failed recipe coroutines won't run until this value changes to false
     void DisableRecipeCoroutine(bool value)
     {
         disableRecipeCoroutine = value;
     }
 
+    // Start the coroutine when user succeeds to create the recipe
     public void StartSuccessfulRecipeCoroutine()
     {
         StartCoroutine(successfulRecipe());
     }
 
+    // Start the coroutine when user fails to create the recipe
     public void StartFailedRecipeCoroutine()
     {
         StartCoroutine(failedRecipe());
@@ -214,19 +220,25 @@ public class ControllerScript : MonoBehaviour
     // generate new recipe. 
     IEnumerator successfulRecipe()
     {
+        // Don't start this coroutine until all the ongoing animations are not complete 
         while(disableRecipeCoroutine)
             yield return new WaitForSeconds(0.1f);
         
+        // Reset the completion timer
         completionTimerScript.StopTimer();
+        //Disable input from VR remote
         DisableInput(true);
+        // Run the correct recipe response coroutine
         levelHandler.correctRecipe();
         yield return new WaitForSeconds(0.5f);
         // Play success particles
         particles.PlaySuccessParticles();
         yield return new WaitForSeconds(1.0f);
+        // Reset location of all the ingredients
         ResetAllLocations();
         // generate new recipe and show on board
         generateNewRecipe();
+        // Re-enable the VR remote inputs 
         DisableInput(false);
     }
 
@@ -234,32 +246,26 @@ public class ControllerScript : MonoBehaviour
     // generate new recipe.
     IEnumerator failedRecipe()
     {
+        // Don't start this coroutine until all the ongoing animations are not complete 
         while(disableRecipeCoroutine)
             yield return new WaitForSeconds(0.1f);
         
+        // Reset the completion timer
         completionTimerScript.ResetTimer();
+        //Disable input from VR remote
         DisableInput(true);
+        // Run the wrong recipe response coroutine
         levelHandler.wrongRecipe();
         yield return new WaitForSeconds(0.5f);
         // Play failure particles
         particles.PlayFailureParticles();
         yield return new WaitForSeconds(1.0f);
+        // Reset location of all the ingredients
         ResetAllLocations();
-        // generate new recipe and show on board
+        // Generate new recipe and show on board
         generateNewRecipe();
+        // Re-enable the VR remote inputs 
         DisableInput(false);
-    }
-    
-    // Convert the recipe array into a string (For testing purposes)
-    private string recipeToString()
-    {
-        StringBuilder text = new StringBuilder("Recipe - ");
-        for(int i = 0; i < currentRecipe.Length - 1; i++)
-        {
-            text.Append(currentRecipe[i] + " + ");
-        }
-        text.Append(currentRecipe[currentRecipe.Length - 1]);
-        return text.ToString();
     }
 
     // Reset location of all ingredients to their respective baskets

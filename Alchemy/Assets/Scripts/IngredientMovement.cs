@@ -171,4 +171,9 @@ public class IngredientMovement : MonoBehaviour
     {
         transform.localPosition = initialLocalPos;
     }
+
+    public void ResetInternalVariables()
+    {
+        waypointIndexPointer = 0;
+    }
 }

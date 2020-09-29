@@ -19,7 +19,12 @@ public class LevelHandler : MonoBehaviour
     private string[] recipe;
     bool isRecipeGeneratable;
     int maxActions;
+    private GameObject timerDisplayObject;
 
+    void Awake()
+    {
+        timerDisplayObject = GameObject.Find("Timer");
+    }
     void Start()
     {
         recipeGenerator = GetComponent<RecipeGenerator>();
@@ -99,8 +104,23 @@ public class LevelHandler : MonoBehaviour
         }
         completionTimer.UpdateLevel(currentRecipeLevel);
         disappearTimer.UpdateLevel(currentRecipeLevel);
+        EnableTimer(currentRecipeLevel);
     }
 
+    private void EnableTimer(int level)
+    {
+        if(level < 2)
+        {
+            timerDisplayObject.SetActive(false);
+        }
+        else
+        {
+            if(!timerDisplayObject.activeInHierarchy)
+            {
+                timerDisplayObject.SetActive(true);
+            }
+        }
+    }
     // Call this method when player makes a wrong recipe. This method will take care of streaks of potions
     public void wrongRecipe()
     {
