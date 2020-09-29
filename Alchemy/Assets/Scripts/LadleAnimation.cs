@@ -40,7 +40,7 @@ public class LadleAnimation : MonoBehaviour
         GetComponent<ParticleSystem>().Play();
         float timePassed = 0f;
         //For 6 seconds, keep calling moveLadle method
-        while(timePassed < 6f)
+        while(timePassed < 4f)
         {
             if(!source.isPlaying)
                 source.PlayOneShot(clip);

@@ -22,7 +22,7 @@ public class RecipeCompletionTimer : MonoBehaviour
         level = 1;
         timerComplete = false;
         controllerScript = GameObject.Find("VRAvatar").GetComponent<ControllerScript>();
-        timer = 30;
+        timer = 60;
         disappearTimer = GetComponent<RecipeDisappearTimer>();
     }
 
@@ -35,22 +35,22 @@ public class RecipeCompletionTimer : MonoBehaviour
     {
         if(level == 2)
         {
-            timer = 30;
+            timer = 60;
             timerDisplayScript.SetDuration((float) timer);
         }
         else if(level == 3)
         {
-            timer = 25;
+            timer = 55;
             timerDisplayScript.SetDuration((float) timer);
         }
         else if(level == 4)
         {
-            timer = 20;
+            timer = 50;
             timerDisplayScript.SetDuration((float) timer);
         }
         else if(level == 5)
         {
-            timer = 20;
+            timer = 45;
             timerDisplayScript.SetDuration((float) timer);
         }
     }
