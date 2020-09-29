@@ -25,6 +25,7 @@ public class LadleAnimation : MonoBehaviour
     {
         //Send message to disable inputs from the controller when ladle is moving
         controllerScript.SendMessage("DisableInput", true);
+        controllerScript.SendMessage("DisableRecipeCoroutine", true);
         float yPos = transform.localPosition.y - 0.3f;
         //Move the ladle down in Y-axis
         transform.localPosition = new Vector3(transform.localPosition.x, yPos, transform.localPosition.z);
@@ -53,6 +54,7 @@ public class LadleAnimation : MonoBehaviour
         controllerScript.SendMessage("DisableInput", false);
         // Stop ladle particle system
         GetComponent<ParticleSystem>().Stop();
+        controllerScript.SendMessage("DisableRecipeCoroutine", false);
     }
 
     //Generate the circular motion using cos and sin values.

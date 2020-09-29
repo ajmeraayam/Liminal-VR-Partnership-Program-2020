@@ -24,8 +24,7 @@ public class IngredientMovementAnimation : MonoBehaviour
         foreach(Transform child in gameObject.transform)
         {
             if(child.tag == "Splash")
-                
-            splashParticleSystem = child.GetComponent<ParticleSystem>();
+                splashParticleSystem = child.GetComponent<ParticleSystem>();
 
             if(child.tag == "Ingredient")
                 ingredientParticleSystem = child.GetComponent<ParticleSystem>();
@@ -46,6 +45,7 @@ public class IngredientMovementAnimation : MonoBehaviour
         ingredientParticleSystem.Play();
         //Send message to disable inputs from the controller when ladle is moving
         controllerScript.SendMessage("DisableInput", true);
+        controllerScript.SendMessage("DisableRecipeCoroutine", true);
     }
 
     public void StopAnimation()
@@ -58,6 +58,9 @@ public class IngredientMovementAnimation : MonoBehaviour
         splashParticleSystem.Play();
         //Send message to disable inputs from the controller when ladle is moving
         controllerScript.SendMessage("DisableInput", false);
+        controllerScript.SendMessage("DisableRecipeCoroutine", false);
+        ResetIngredientLocation();
+        ingredientScript.ResetInternalVariables();
     }
 
     private void EnableWaypoints(bool value)
@@ -67,5 +70,10 @@ public class IngredientMovementAnimation : MonoBehaviour
         {
             waypoint.GetComponent<SphereCollider>().enabled = value;
         }
+    }
+
+    public void ResetIngredientLocation()
+    {
+        ingredientScript.ResetLocation();
     }
 }

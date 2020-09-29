@@ -2069,6 +2069,26 @@ PrefabInstance:
       propertyPath: splashClip
       value: 
       objectReference: {fileID: 8300000, guid: 86ff52f6954d82b40a6d1be453485bda, type: 3}
+    - target: {fileID: 4825851042516438556, guid: 26ef71e178a237b4a8555d2a041e60a9,
+        type: 3}
+      propertyPath: acceleration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825851042516438556, guid: 26ef71e178a237b4a8555d2a041e60a9,
+        type: 3}
+      propertyPath: inertia
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825851042516438556, guid: 26ef71e178a237b4a8555d2a041e60a9,
+        type: 3}
+      propertyPath: speedLimit
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825851042516438556, guid: 26ef71e178a237b4a8555d2a041e60a9,
+        type: 3}
+      propertyPath: stopTime
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26ef71e178a237b4a8555d2a041e60a9, type: 3}
 --- !u!4 &3644528520744046863 stripped
@@ -2244,6 +2264,26 @@ PrefabInstance:
       propertyPath: splashClip
       value: 
       objectReference: {fileID: 8300000, guid: 86ff52f6954d82b40a6d1be453485bda, type: 3}
+    - target: {fileID: 8443411583953717027, guid: 90fbe3db11315414f95d26d085cf8857,
+        type: 3}
+      propertyPath: acceleration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443411583953717027, guid: 90fbe3db11315414f95d26d085cf8857,
+        type: 3}
+      propertyPath: inertia
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443411583953717027, guid: 90fbe3db11315414f95d26d085cf8857,
+        type: 3}
+      propertyPath: speedLimit
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443411583953717027, guid: 90fbe3db11315414f95d26d085cf8857,
+        type: 3}
+      propertyPath: stopTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8157840533299883593, guid: 90fbe3db11315414f95d26d085cf8857,
         type: 3}
       propertyPath: m_IsTrigger
@@ -2533,6 +2573,26 @@ PrefabInstance:
       propertyPath: splashClip
       value: 
       objectReference: {fileID: 8300000, guid: 86ff52f6954d82b40a6d1be453485bda, type: 3}
+    - target: {fileID: 7525112356580261981, guid: 310826000e9f4fb4facc35abd363c217,
+        type: 3}
+      propertyPath: acceleration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7525112356580261981, guid: 310826000e9f4fb4facc35abd363c217,
+        type: 3}
+      propertyPath: inertia
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7525112356580261981, guid: 310826000e9f4fb4facc35abd363c217,
+        type: 3}
+      propertyPath: speedLimit
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7525112356580261981, guid: 310826000e9f4fb4facc35abd363c217,
+        type: 3}
+      propertyPath: stopTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 610642826748044511, guid: 310826000e9f4fb4facc35abd363c217,
         type: 3}
       propertyPath: m_IsTrigger
@@ -2644,6 +2704,26 @@ PrefabInstance:
       propertyPath: splashClip
       value: 
       objectReference: {fileID: 8300000, guid: 86ff52f6954d82b40a6d1be453485bda, type: 3}
+    - target: {fileID: 723583648164433137, guid: 12b6ff85d6463384991740f14a3b17d7,
+        type: 3}
+      propertyPath: acceleration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 723583648164433137, guid: 12b6ff85d6463384991740f14a3b17d7,
+        type: 3}
+      propertyPath: inertia
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 723583648164433137, guid: 12b6ff85d6463384991740f14a3b17d7,
+        type: 3}
+      propertyPath: speedLimit
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 723583648164433137, guid: 12b6ff85d6463384991740f14a3b17d7,
+        type: 3}
+      propertyPath: stopTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7747800835129326957, guid: 12b6ff85d6463384991740f14a3b17d7,
         type: 3}
       propertyPath: InitialModule.startSize.minScalar
