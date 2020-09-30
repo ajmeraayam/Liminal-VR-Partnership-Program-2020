@@ -25,18 +25,6 @@ public class RecipeDisplayManager : MonoBehaviour
         displayableWidth = boardWidth - 35f;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void DisplayRecipeSprites(string[] recipe)
     {
         if(actionObjects != null)
@@ -113,5 +101,10 @@ public class RecipeDisplayManager : MonoBehaviour
         {
             Destroy(actionObjects[i]);
         }
+    }
+
+    public void DisappearRecipe()
+    {
+        DestroyOldGameObjects();
     }
 }

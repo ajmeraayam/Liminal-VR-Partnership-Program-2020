@@ -23,6 +23,7 @@ public class RecipeCompletionTimer : MonoBehaviour
         timerComplete = false;
         controllerScript = GameObject.Find("VRAvatar").GetComponent<ControllerScript>();
         timer = 60;
+        timerDisplayScript.SetDuration((float) timer);
         disappearTimer = GetComponent<RecipeDisappearTimer>();
     }
 
@@ -77,7 +78,6 @@ public class RecipeCompletionTimer : MonoBehaviour
         // Send the timer value to the display board
         while(true)
         {
-            //print("Timer - " + timer);
             timerDisplayScript.Countdown((float) timer);
             yield return new WaitForSeconds(1f);
             timer -= 1;

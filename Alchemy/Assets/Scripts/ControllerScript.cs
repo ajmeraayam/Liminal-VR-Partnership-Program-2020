@@ -5,9 +5,7 @@ using UnityEngine;
 using Liminal.SDK.VR;
 using Liminal.SDK.VR.Input;
 
-/*
- * Performance improvements - Cache methods for gameobjects (probably in hashmap) that are used often in the game. 
- * It will save the time to search for script in the gameobject. 
+/* 
  * Another way is to check if OnPointerClick, OnPointerDown and OnPointerUp does the job better or not
 */
 public class ControllerScript : MonoBehaviour

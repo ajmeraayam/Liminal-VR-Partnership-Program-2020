@@ -99,7 +99,6 @@ public class Timer : MonoBehaviour
     void Start()
     {
         gameObject.SetActive(false);
-        SetDuration(30f);
     }
 
 	//Update is called once per frame
@@ -107,11 +106,13 @@ public class Timer : MonoBehaviour
     {
         Countdown();
     }*/
+
     public void SetDuration(float dur)
     {
         duration = dur;
         fillUpOrDown = FillUpOrDown.fillUp;
         countUpOrDown = CountUpOrDown.countUp;
+        Countdown(dur);
     }
 
     public void UpdateEditorStuff()
@@ -215,7 +216,6 @@ public class Timer : MonoBehaviour
         m_timerTextSettings.textObject.color = m_timerTextSettings.color;
     }
 
-    //void Countdown()
     public void Countdown(float curTime)
     {
         /*if (!timerPaused)
