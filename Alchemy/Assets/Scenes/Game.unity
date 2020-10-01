@@ -970,10 +970,30 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2494624847642500493, guid: 38880ea6842d2aa47b4f70ee24e1e0ec,
+        type: 3}
+      propertyPath: m_timerTextSettings.textEnabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8197055511412750263, guid: 38880ea6842d2aa47b4f70ee24e1e0ec,
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -230
+      objectReference: {fileID: 0}
+    - target: {fileID: 2525692658496580699, guid: 38880ea6842d2aa47b4f70ee24e1e0ec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524543731990453799, guid: 38880ea6842d2aa47b4f70ee24e1e0ec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2526370269211346573, guid: 38880ea6842d2aa47b4f70ee24e1e0ec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6991511254402142825, guid: 38880ea6842d2aa47b4f70ee24e1e0ec,
         type: 3}
