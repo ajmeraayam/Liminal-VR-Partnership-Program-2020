@@ -11,6 +11,7 @@ public class RecipeDisappearTimer : MonoBehaviour
     private ControllerScript controllerScript;
     private Timer timerDisplayScript;
     private RecipeDisplayManager recipeDisplayManager;
+    private Coroutine routine = null;
     
     void Awake()
     {
@@ -36,17 +37,17 @@ public class RecipeDisappearTimer : MonoBehaviour
     {
         if(level == 3)
         {
-            timer = 8;
+            timer = 15;
             timerDisplayScript.SetDuration((float) timer);
         }
         else if(level == 4)
         {
-            timer = 5;
+            timer = 10;
             timerDisplayScript.SetDuration((float) timer);
         }
         else if(level == 5)
         {
-            timer = 4;
+            timer = 7;
             timerDisplayScript.SetDuration((float) timer);
         }
     }
@@ -54,7 +55,7 @@ public class RecipeDisappearTimer : MonoBehaviour
     public void StartTimer()
     {
         if(level > 2)
-            StartCoroutine(TimerCoroutine());
+            routine = StartCoroutine(TimerCoroutine());
     }
 
     IEnumerator TimerCoroutine()

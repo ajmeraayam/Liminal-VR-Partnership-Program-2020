@@ -11,6 +11,8 @@ public class RecipeCompletionTimer : MonoBehaviour
     private bool timerComplete;
     private ControllerScript controllerScript;
     private RecipeDisappearTimer disappearTimer;
+    private bool isRunning = false;
+    private Coroutine routine = null;
 
     void Awake()
     {
@@ -54,25 +56,29 @@ public class RecipeCompletionTimer : MonoBehaviour
             timer = 45;
             timerDisplayScript.SetDuration((float) timer);
         }
+        isRunning = false;
     }
 
     public void StartTimer()
     {
-        if(level > 1)
-            StartCoroutine(TimerCoroutine());
+        if(level > 1 && !isRunning)
+        {
+            routine = StartCoroutine(TimerCoroutine());
+        }
     }
 
     public void StopTimer()
     {
         if(level > 1)
         {
-            StopCoroutine(TimerCoroutine());
+            StopCoroutine(routine);
             ResetTimer();
         }
     }
 
     IEnumerator TimerCoroutine()
     {
+        isRunning = true;
         yield return new WaitForSeconds(2f);
         disappearTimer.StartTimer();
         // Send the timer value to the display board
@@ -80,13 +86,12 @@ public class RecipeCompletionTimer : MonoBehaviour
         {
             timerDisplayScript.Countdown((float) timer);
             yield return new WaitForSeconds(1f);
-            timer -= 1;
+            timer--;
             //Send the timer value to the display board
             if(timer <= 0)
                 break;
         }
 
         controllerScript.SendMessage("StartFailedRecipeCoroutine");
-        
     }
 }

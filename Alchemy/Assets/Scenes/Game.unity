@@ -970,16 +970,41 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 2494624847642500493, guid: 38880ea6842d2aa47b4f70ee24e1e0ec,
-        type: 3}
-      propertyPath: m_timerTextSettings.textEnabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8197055511412750263, guid: 38880ea6842d2aa47b4f70ee24e1e0ec,
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -230
       objectReference: {fileID: 0}
+    - target: {fileID: 6991511254402142825, guid: 38880ea6842d2aa47b4f70ee24e1e0ec,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Recipe will disappear in:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2494624847642500493, guid: 38880ea6842d2aa47b4f70ee24e1e0ec,
+        type: 3}
+      propertyPath: timerEnd.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2494624847642500493, guid: 38880ea6842d2aa47b4f70ee24e1e0ec,
+        type: 3}
+      propertyPath: m_timerTextSettings.textEnabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2494624847642500493, guid: 38880ea6842d2aa47b4f70ee24e1e0ec,
+        type: 3}
+      propertyPath: timerEnd.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2494624847642500493, guid: 38880ea6842d2aa47b4f70ee24e1e0ec,
+        type: 3}
+      propertyPath: timerEnd.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2494624847642500493, guid: 38880ea6842d2aa47b4f70ee24e1e0ec,
+        type: 3}
+      propertyPath: timerEnd.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1295797779}
     - target: {fileID: 2525692658496580699, guid: 38880ea6842d2aa47b4f70ee24e1e0ec,
         type: 3}
       propertyPath: m_IsActive
@@ -994,11 +1019,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6991511254402142825, guid: 38880ea6842d2aa47b4f70ee24e1e0ec,
-        type: 3}
-      propertyPath: m_Text
-      value: 'Recipe will disappear in:'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38880ea6842d2aa47b4f70ee24e1e0ec, type: 3}
@@ -1437,6 +1457,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6668719334112409121, guid: cf5d66124b475234ebab2b504c2e9892,
     type: 3}
   m_PrefabInstance: {fileID: 1280162572}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1295797779 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2526363243904216963, guid: 38880ea6842d2aa47b4f70ee24e1e0ec,
+    type: 3}
+  m_PrefabInstance: {fileID: 840065628}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1414890402 stripped
 MonoBehaviour:

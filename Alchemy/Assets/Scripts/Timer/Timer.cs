@@ -99,6 +99,8 @@ public class Timer : MonoBehaviour
     void Start()
     {
         gameObject.SetActive(false);
+        fillUpOrDown = FillUpOrDown.fillUp;
+        countUpOrDown = CountUpOrDown.countUp;
     }
 
 	//Update is called once per frame
@@ -109,10 +111,8 @@ public class Timer : MonoBehaviour
 
     public void SetDuration(float dur)
     {
-        duration = dur;
-        fillUpOrDown = FillUpOrDown.fillUp;
-        countUpOrDown = CountUpOrDown.countUp;
-        Countdown(dur);
+        this.duration = dur;
+        this.Countdown(dur);
     }
 
     public void UpdateEditorStuff()
