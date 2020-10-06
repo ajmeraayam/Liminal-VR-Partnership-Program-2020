@@ -13,6 +13,7 @@ TagManager:
   - Pot
   - Ingredient
   - Splash
+  - Start
   layers:
   - Default
   - TransparentFX
