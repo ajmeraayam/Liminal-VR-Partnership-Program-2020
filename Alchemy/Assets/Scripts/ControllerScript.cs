@@ -27,6 +27,8 @@ public class ControllerScript : MonoBehaviour
     private RecipeCompletionTimer completionTimerScript;
     private RecipeDisplayManager recipeDisplayScript;
 
+    public GameObject startBoard;
+
     void Start()
     {
         gameManager = GameObject.Find("Game Manager");
@@ -121,6 +123,8 @@ public class ControllerScript : MonoBehaviour
         else
         {
             // Start the game when user clicks on firewood
+
+            // As of build 10/6/2020 will no longer be needed.
             if(hit.gameObject.CompareTag("Fire"))
             {
                 //SoundManager.Play("flick");
@@ -132,6 +136,19 @@ public class ControllerScript : MonoBehaviour
                 generateNewRecipe();
             }
         }
+    }
+
+    // Start the game
+    public void startGame()
+    {
+        //SoundManager.Play("flick");
+        startBoard.SetActive(false);
+        GameObject.FindWithTag("Fire").GetComponent<FireGenerator>().startFire();
+        gameStarted = true;
+        GameObject.FindWithTag("Pot").GetComponent<ParticleSystem>().Play();
+        actionsTaken = 0;
+        maxActionsForThisRecipe = 0;
+        generateNewRecipe();
     }
 
     private void InitializeBasketScripts()

@@ -5,24 +5,26 @@ using UnityEditor;
 using UnityEngine.UI;
 using System.Linq;
 
-[CustomEditor(typeof(Timer))]
-[CanEditMultipleObjects]
-public class TimerEditor :  Editor
+//[CustomEditor(typeof(Timer))]
+//[CanEditMultipleObjects]
+public class TimerEditor : MonoBehaviour
 {
     //this texture is the banner image at top of script in inspector.
     
 
-    public override void OnInspectorGUI () 
+    public void OnInspectorGUI () 
     {
         
 
-        DrawDefaultInspector();
+        // DrawDefaultInspector();
 
         //The Horizontals and FlexibleSpaces center our elements in the inspector.
+        /*
         EditorGUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
-
+        */
         //The following creates the 3 buttons in the inspector. The foreach enables functionality for multi-object selecting.
+        /*
         if (GUILayout.Button("Start Timer", GUILayout.Width(200), GUILayout.Height(23)))
         {
             foreach (var timer in targets.Cast<Timer>())
@@ -61,5 +63,6 @@ public class TimerEditor :  Editor
 
         GUILayout.FlexibleSpace();
         EditorGUILayout.EndHorizontal();
+        */
     }
 }
