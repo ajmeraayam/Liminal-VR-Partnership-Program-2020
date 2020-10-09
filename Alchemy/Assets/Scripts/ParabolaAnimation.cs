@@ -27,12 +27,6 @@ public class ParabolaAnimation : MonoBehaviour
         source = GetComponent<AudioSource>();
         initialLocalPos = transform.localPosition;
     }
-
-    // Start is called before the first frame update
-    /*void Start()
-    {
-        StartCoroutine(SimulateProjectile());       
-    }*/
  
     public void StartAnimation()
     {

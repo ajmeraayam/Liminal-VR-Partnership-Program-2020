@@ -12,6 +12,9 @@ public class Tutorial : MonoBehaviour
     private int nextAction;
     private Coroutine tutorialCoroutine = null;
     private bool complete;
+    public GameObject herbSpotlight;
+    public GameObject mushroomSpotlight;
+    public GameObject potSpotlight;
 
     void Awake()
     {
@@ -20,6 +23,13 @@ public class Tutorial : MonoBehaviour
         controllerScript = GameObject.Find("VRAvatar").GetComponent<ControllerScript>();
         nextAction = 0;
         complete = false;
+    }
+
+    void Start()
+    {
+        herbSpotlight.SetActive(false);
+        mushroomSpotlight.SetActive(false);
+        potSpotlight.SetActive(false);
     }
 
     public void StartTutorial()
@@ -41,6 +51,7 @@ public class Tutorial : MonoBehaviour
         nextAction = 0;
         instructionText.text = "You have to make potions by following the recipes. Click on the shining basket";
         // Shine a spotlight
+        ShineSpotlight(nextAction);
         controllerScript.SendMessage("DisableInput", false);
         // Wait for player to complete the actions
         while(true)
@@ -56,6 +67,8 @@ public class Tutorial : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
+        DeactivateAllSpotlights();
+        displayManagerScript.DisappearRecipe();
         instructionText.text = "Tutorial Completed! Good Luck!";
         yield return new WaitForSeconds(5f);
         controllerScript.TutorialComplete = true;
@@ -78,6 +91,7 @@ public class Tutorial : MonoBehaviour
             {
                 instructionText.text = "Great! Now click on the next shining object";
                 // Shine a spotlight
+                ShineSpotlight(nextAction);
             }
             // If this was the last action of the tutorial
             else
@@ -103,7 +117,7 @@ public class Tutorial : MonoBehaviour
         {
             yield return new WaitForEndOfFrame();
         }
-
+        DeactivateAllSpotlights();
         StopCoroutine(tutorialCoroutine);
         controllerScript.SendMessage("DisableInput", true);
         // Destroy recipe from display
@@ -113,5 +127,30 @@ public class Tutorial : MonoBehaviour
         controllerScript.TutorialComplete = true;
         instructionText.text = "";
         controllerScript.StartGame();
+    }
+
+    private void ShineSpotlight(int action)
+    {
+        DeactivateAllSpotlights();
+        string ingredient = recipe[action];
+        if(ingredient.Equals("h"))
+        {
+            herbSpotlight.SetActive(true);
+        }
+        else if(ingredient.Equals("u"))
+        {
+            mushroomSpotlight.SetActive(true);
+        }
+        else if(ingredient.Equals("i"))
+        {
+            potSpotlight.SetActive(true);
+        }
+    }
+
+    private void DeactivateAllSpotlights()
+    {
+        herbSpotlight.SetActive(false);
+        mushroomSpotlight.SetActive(false);
+        potSpotlight.SetActive(false);
     }
 }
