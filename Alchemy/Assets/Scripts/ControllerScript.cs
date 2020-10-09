@@ -27,6 +27,7 @@ public class ControllerScript : MonoBehaviour
     private RecipeCompletionTimer completionTimerScript;
     private RecipeDisplayManager recipeDisplayScript;
     public GameObject startBoard;
+    public GameObject skipTutorialBoard;
     private Tutorial tutorialScript;
     private GameObject mainBoard;
     private bool tutorialComplete;
@@ -48,6 +49,7 @@ public class ControllerScript : MonoBehaviour
         tutorialScript = gameManager.GetComponent<Tutorial>();
         mainBoard = GameObject.Find("Main Board");
         mainBoard.SetActive(false);
+        skipTutorialBoard.SetActive(false);
         tutorialComplete = false;
     }
 
@@ -193,6 +195,7 @@ public class ControllerScript : MonoBehaviour
     {
         startBoard.SetActive(false);
         mainBoard.SetActive(true);
+        skipTutorialBoard.SetActive(true);
         tutorialScript.StartTutorial();
         GameObject.FindWithTag("Fire").GetComponent<FireGenerator>().startFire();
         gameStarted = false;
@@ -205,9 +208,10 @@ public class ControllerScript : MonoBehaviour
         //SoundManager.Play("flick");
         //startBoard.SetActive(false);
         //mainBoard.SetActive(true);
-        GameObject.FindWithTag("Fire").GetComponent<FireGenerator>().startFire();
+        //GameObject.FindWithTag("Fire").GetComponent<FireGenerator>().startFire();
         gameStarted = true;
-        GameObject.FindWithTag("Pot").GetComponent<ParticleSystem>().Play();
+        DisableInput(false);
+        //GameObject.FindWithTag("Pot").GetComponent<ParticleSystem>().Play();
         actionsTaken = 0;
         maxActionsForThisRecipe = 0;
         GenerateNewRecipe();
@@ -357,5 +361,10 @@ public class ControllerScript : MonoBehaviour
         {
             basketScripts[i].ResetIngredientLocation();
         }
+    }
+
+    public void DisableSkipTutorialButton()
+    {
+        skipTutorialBoard.SetActive(false);
     }
 }

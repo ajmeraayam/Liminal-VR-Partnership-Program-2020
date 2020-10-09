@@ -29,9 +29,9 @@ public class Tutorial : MonoBehaviour
 
     private IEnumerator TutorialCoroutine()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2f);
         instructionText.text = "Welcome to Alchemy! The recipes will show up on the other board";
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(6f);
         // Display the tutorial recipe on the board
         DisplayRecipe();
         nextAction = 0;
@@ -85,5 +85,29 @@ public class Tutorial : MonoBehaviour
         {
             instructionText.text = "Wrong basket. Click on the shining object";
         }
+    }
+
+    public void SkipTutorial()
+    {
+        StartCoroutine(SkipTute());
+    }
+
+    private IEnumerator SkipTute()
+    {
+        controllerScript.DisableSkipTutorialButton();
+        while(controllerScript.IsRecipeCoroutineDisabled())
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        StopCoroutine(tutorialCoroutine);
+        controllerScript.SendMessage("DisableInput", true);
+        // Destroy recipe from display
+        displayManagerScript.DisappearRecipe();
+        instructionText.text = "Tutorial Skipped! Good Luck!";
+        yield return new WaitForSeconds(3f);
+        controllerScript.TutorialComplete = true;
+        instructionText.text = "";
+        controllerScript.StartGame();
     }
 }
