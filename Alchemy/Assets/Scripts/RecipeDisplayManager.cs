@@ -105,6 +105,7 @@ public class RecipeDisplayManager : MonoBehaviour
 
     public void DisappearRecipe()
     {
-        DestroyOldGameObjects();
+        if(actionObjects != null)
+            DestroyOldGameObjects();
     }
 }

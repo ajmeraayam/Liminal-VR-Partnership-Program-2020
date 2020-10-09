@@ -120,29 +120,32 @@ public class ControllerScript : MonoBehaviour
             // If herb basket is clicked, execute herb movement animation
             else if(hit.gameObject.CompareTag("Herb"))
             {
-                hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
-                //hit.gameObject.GetComponent<AnimationHandler>().StartAnimation();
+                //hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+                hit.gameObject.GetComponent<AnimationHandler>().StartAnimation();
                 recordedActions[actionsTaken] = "h";
                 actionsTaken++;
             }
             // If mineral basket is clicked, execute mineral movement animation
             else if(hit.gameObject.CompareTag("Mineral"))
             {
-                hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+                //hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+                hit.gameObject.GetComponent<AnimationHandler>().StartAnimation();
                 recordedActions[actionsTaken] = "m";
                 actionsTaken++;
             }
             // If mushroom basket is clicked, execute mushroom movement animation
             else if(hit.gameObject.CompareTag("Mushroom"))
             {
-                hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+                //hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+                hit.gameObject.GetComponent<AnimationHandler>().StartAnimation();
                 recordedActions[actionsTaken] = "u";
                 actionsTaken++;
             }
             // If magic item basket is clicked, execute magic item movement animation
             else if(hit.gameObject.CompareTag("Magic item"))
             {
-                hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+                //hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+                hit.gameObject.GetComponent<AnimationHandler>().StartAnimation();
                 recordedActions[actionsTaken] = "g";
                 actionsTaken++;
             }
@@ -156,27 +159,30 @@ public class ControllerScript : MonoBehaviour
         // If herb basket is clicked, execute herb movement animation
         if(hit.gameObject.CompareTag("Herb"))
         {
-            hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
-            //hit.gameObject.GetComponent<AnimationHandler>().StartAnimation();
+            //hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+            hit.gameObject.GetComponent<AnimationHandler>().StartAnimation();
             // Wait for animation to complete 
             tutorialScript.RecordAction("h");
         }
         // If mineral basket is clicked, execute mineral movement animation
         else if(hit.gameObject.CompareTag("Mineral"))
         {
-            hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+            //hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+            hit.gameObject.GetComponent<AnimationHandler>().StartAnimation();
             tutorialScript.RecordAction("m");
         }
         // If mushroom basket is clicked, execute mushroom movement animation
         else if(hit.gameObject.CompareTag("Mushroom"))
         {
-            hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+            //hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+            hit.gameObject.GetComponent<AnimationHandler>().StartAnimation();
             tutorialScript.RecordAction("u");
         }
         // If magic item basket is clicked, execute magic item movement animation
         else if(hit.gameObject.CompareTag("Magic item"))
         {
-            hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+            //hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+            hit.gameObject.GetComponent<AnimationHandler>().StartAnimation();
             tutorialScript.RecordAction("g");
         }
         //If ladle is clicked, then execute ladle animation
@@ -207,13 +213,8 @@ public class ControllerScript : MonoBehaviour
     // Start the game
     public void StartGame()
     {
-        //SoundManager.Play("flick");
-        //startBoard.SetActive(false);
-        //mainBoard.SetActive(true);
-        //GameObject.FindWithTag("Fire").GetComponent<FireGenerator>().startFire();
         gameStarted = true;
         DisableInput(false);
-        //GameObject.FindWithTag("Pot").GetComponent<ParticleSystem>().Play();
         actionsTaken = 0;
         maxActionsForThisRecipe = 0;
         GenerateNewRecipe();
