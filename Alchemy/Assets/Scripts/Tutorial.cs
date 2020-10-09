@@ -29,15 +29,19 @@ public class Tutorial : MonoBehaviour
 
     private IEnumerator TutorialCoroutine()
     {
-        yield return new WaitForSeconds(2f);
-        instructionText.text = "Welcome to Alchemy! The recipes will show up on the other board";
-        yield return new WaitForSeconds(6f);
+        controllerScript.SendMessage("DisableInput", true);
+        instructionText.text = "Welcome to Alchemy!";
+        yield return new WaitForSeconds(4f);
+        instructionText.text = "The recipes will show up on the other board.";
+        yield return new WaitForSeconds(4f);
+        instructionText.text = "The colours on the board correspond to the labels on the basket";
+        yield return new WaitForSeconds(4f);
         // Display the tutorial recipe on the board
         DisplayRecipe();
         nextAction = 0;
         instructionText.text = "You have to make potions by following the recipes. Click on the shining basket";
         // Shine a spotlight
-        
+        controllerScript.SendMessage("DisableInput", false);
         // Wait for player to complete the actions
         while(true)
         {

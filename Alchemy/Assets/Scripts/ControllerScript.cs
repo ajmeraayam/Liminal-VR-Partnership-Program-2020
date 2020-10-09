@@ -121,6 +121,7 @@ public class ControllerScript : MonoBehaviour
             else if(hit.gameObject.CompareTag("Herb"))
             {
                 hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+                //hit.gameObject.GetComponent<AnimationHandler>().StartAnimation();
                 recordedActions[actionsTaken] = "h";
                 actionsTaken++;
             }
@@ -156,6 +157,7 @@ public class ControllerScript : MonoBehaviour
         if(hit.gameObject.CompareTag("Herb"))
         {
             hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+            //hit.gameObject.GetComponent<AnimationHandler>().StartAnimation();
             // Wait for animation to complete 
             tutorialScript.RecordAction("h");
         }
