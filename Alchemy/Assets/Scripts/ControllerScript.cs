@@ -26,8 +26,12 @@ public class ControllerScript : MonoBehaviour
     private IngredientMovementAnimation[] basketScripts;
     private RecipeCompletionTimer completionTimerScript;
     private RecipeDisplayManager recipeDisplayScript;
-
     public GameObject startBoard;
+    public GameObject skipTutorialBoard;
+    private Tutorial tutorialScript;
+    private GameObject mainBoard;
+    private bool tutorialComplete;
+    public bool TutorialComplete { set { tutorialComplete = value; } }
 
     void Start()
     {
@@ -42,6 +46,11 @@ public class ControllerScript : MonoBehaviour
         InitializeBasketScripts();
         completionTimerScript = gameManager.GetComponent<RecipeCompletionTimer>();
         recipeDisplayScript = gameManager.GetComponent<RecipeDisplayManager>();
+        tutorialScript = gameManager.GetComponent<Tutorial>();
+        mainBoard = GameObject.Find("Main Board");
+        mainBoard.SetActive(false);
+        skipTutorialBoard.SetActive(false);
+        tutorialComplete = false;
     }
 
     // Update is called once per frame
@@ -61,11 +70,30 @@ public class ControllerScript : MonoBehaviour
         var hitResult = inputDevice.Pointer.CurrentRaycastResult;
         
         //Process button clicks only if the controller is pointed to an object and input is enabled
-        if(hitResult.gameObject != null && !disableInput)
+        if(hitResult.gameObject != null)
         {
-            if(inputDevice.GetButtonDown(VRButton.One))
+            // If tutorial is complete
+            if(tutorialComplete)
             {
-                OnControllerButtonClick(hitResult);
+                if(!disableInput)
+                {
+                    if(inputDevice.GetButtonDown(VRButton.One))
+                    {
+                        OnControllerButtonClick(hitResult);
+                    }
+                }
+                // else record the click
+            }
+            // During tutorial
+            else
+            {
+                if(!disableInput)
+                {
+                    if(inputDevice.GetButtonDown(VRButton.One))
+                    {
+                        ControllerClickInTutorial(hitResult);
+                    }
+                }
             }
         }
     }
@@ -92,63 +120,104 @@ public class ControllerScript : MonoBehaviour
             // If herb basket is clicked, execute herb movement animation
             else if(hit.gameObject.CompareTag("Herb"))
             {
-                hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+                //hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+                hit.gameObject.GetComponent<AnimationHandler>().StartAnimation();
                 recordedActions[actionsTaken] = "h";
                 actionsTaken++;
             }
             // If mineral basket is clicked, execute mineral movement animation
             else if(hit.gameObject.CompareTag("Mineral"))
             {
-                hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+                //hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+                hit.gameObject.GetComponent<AnimationHandler>().StartAnimation();
                 recordedActions[actionsTaken] = "m";
                 actionsTaken++;
             }
             // If mushroom basket is clicked, execute mushroom movement animation
             else if(hit.gameObject.CompareTag("Mushroom"))
             {
-                hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+                //hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+                hit.gameObject.GetComponent<AnimationHandler>().StartAnimation();
                 recordedActions[actionsTaken] = "u";
                 actionsTaken++;
             }
             // If magic item basket is clicked, execute magic item movement animation
             else if(hit.gameObject.CompareTag("Magic item"))
             {
-                hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+                //hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+                hit.gameObject.GetComponent<AnimationHandler>().StartAnimation();
                 recordedActions[actionsTaken] = "g";
                 actionsTaken++;
             }
 
-            checkActions();
-        }
-        else
-        {
-            // Start the game when user clicks on firewood
-
-            // As of build 10/6/2020 will no longer be needed.
-            if(hit.gameObject.CompareTag("Fire"))
-            {
-                //SoundManager.Play("flick");
-                hit.gameObject.GetComponent<FireGenerator>().startFire();
-                gameStarted = true;
-                GameObject.FindWithTag("Pot").GetComponent<ParticleSystem>().Play();
-                actionsTaken = 0;
-                maxActionsForThisRecipe = 0;
-                generateNewRecipe();
-            }
+            CheckActions();
         }
     }
 
-    // Start the game
-    public void startGame()
+    private void ControllerClickInTutorial(UnityEngine.EventSystems.RaycastResult hit)
     {
-        //SoundManager.Play("flick");
+        // If herb basket is clicked, execute herb movement animation
+        if(hit.gameObject.CompareTag("Herb"))
+        {
+            //hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+            hit.gameObject.GetComponent<AnimationHandler>().StartAnimation();
+            // Wait for animation to complete 
+            tutorialScript.RecordAction("h");
+        }
+        // If mineral basket is clicked, execute mineral movement animation
+        else if(hit.gameObject.CompareTag("Mineral"))
+        {
+            //hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+            hit.gameObject.GetComponent<AnimationHandler>().StartAnimation();
+            tutorialScript.RecordAction("m");
+        }
+        // If mushroom basket is clicked, execute mushroom movement animation
+        else if(hit.gameObject.CompareTag("Mushroom"))
+        {
+            //hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+            hit.gameObject.GetComponent<AnimationHandler>().StartAnimation();
+            tutorialScript.RecordAction("u");
+        }
+        // If magic item basket is clicked, execute magic item movement animation
+        else if(hit.gameObject.CompareTag("Magic item"))
+        {
+            //hit.gameObject.GetComponent<IngredientMovementAnimation>().StartAnimation();
+            hit.gameObject.GetComponent<AnimationHandler>().StartAnimation();
+            tutorialScript.RecordAction("g");
+        }
+        //If ladle is clicked, then execute ladle animation
+        else if(hit.gameObject.CompareTag("Ladle"))
+        {
+            hit.gameObject.GetComponent<LadleAnimation>().WhenClicked();
+            tutorialScript.RecordAction("i");
+        }
+        // If pot is clicked, then execute ladle animation
+        else if(hit.gameObject.CompareTag("Pot"))
+        {
+            GameObject.FindWithTag("Ladle").GetComponent<LadleAnimation>().WhenClicked();
+            tutorialScript.RecordAction("i");
+        }
+    }
+
+    public void StartTutorial()
+    {
         startBoard.SetActive(false);
+        mainBoard.SetActive(true);
+        skipTutorialBoard.SetActive(true);
+        tutorialScript.StartTutorial();
         GameObject.FindWithTag("Fire").GetComponent<FireGenerator>().startFire();
-        gameStarted = true;
+        gameStarted = false;
         GameObject.FindWithTag("Pot").GetComponent<ParticleSystem>().Play();
+    }
+
+    // Start the game
+    public void StartGame()
+    {
+        gameStarted = true;
+        DisableInput(false);
         actionsTaken = 0;
         maxActionsForThisRecipe = 0;
-        generateNewRecipe();
+        GenerateNewRecipe();
     }
 
     private void InitializeBasketScripts()
@@ -162,7 +231,7 @@ public class ControllerScript : MonoBehaviour
     // Gets new recipe from the level handler and stores the recipe in an array. Also, gets the maximum
     // number of actions that will complete this recipe.
     // Also creates an array to record the actions (ingredients and pot/ladle) taken by the player.
-    private void generateNewRecipe()
+    private void GenerateNewRecipe()
     {
         levelHandler.recipeGeneratable();
         levelHandler.generateNewRecipe();
@@ -176,7 +245,7 @@ public class ControllerScript : MonoBehaviour
     // After every click on ingredients or pot, check if user has completed specified number of actions.
     // If so, check if they made a correct recipe or not.
     // Show particles and animations according to the outcome.
-    private void checkActions()
+    private void CheckActions()
     {
         // If all the actions are taken, then check all the actions and compare them with the recipe that was generated
         if(actionsTaken == maxActionsForThisRecipe)
@@ -195,11 +264,11 @@ public class ControllerScript : MonoBehaviour
             // If they match then start the success coroutine. Else start failure coroutine 
             if(success)
             {
-                StartCoroutine(successfulRecipe());
+                StartCoroutine(SuccessfulRecipe());
             }
             else
             {
-                StartCoroutine(failedRecipe());
+                StartCoroutine(FailedRecipe());
             }
             actionsTaken = 0;
         }
@@ -219,21 +288,26 @@ public class ControllerScript : MonoBehaviour
         disableRecipeCoroutine = value;
     }
 
+    public bool IsRecipeCoroutineDisabled()
+    {
+        return disableRecipeCoroutine;
+    }
+
     // Start the coroutine when user succeeds to create the recipe
     public void StartSuccessfulRecipeCoroutine()
     {
-        StartCoroutine(successfulRecipe());
+        StartCoroutine(SuccessfulRecipe());
     }
 
     // Start the coroutine when user fails to create the recipe
     public void StartFailedRecipeCoroutine()
     {
-        StartCoroutine(failedRecipe());
+        StartCoroutine(FailedRecipe());
     }
 
     // If recipe is successful then increment the score, show the response through particle system and 
     // generate new recipe. 
-    IEnumerator successfulRecipe()
+    IEnumerator SuccessfulRecipe()
     {
         // Don't start this coroutine until all the ongoing animations are not complete 
         while(disableRecipeCoroutine)
@@ -252,14 +326,14 @@ public class ControllerScript : MonoBehaviour
         // Reset location of all the ingredients
         ResetAllLocations();
         // generate new recipe and show on board
-        generateNewRecipe();
+        GenerateNewRecipe();
         // Re-enable the VR remote inputs 
         DisableInput(false);
     }
 
     // If recipe is unsuccessful then update the score system, show the response through particle system and 
     // generate new recipe.
-    IEnumerator failedRecipe()
+    IEnumerator FailedRecipe()
     {
         // Don't start this coroutine until all the ongoing animations are not complete 
         while(disableRecipeCoroutine)
@@ -278,7 +352,7 @@ public class ControllerScript : MonoBehaviour
         // Reset location of all the ingredients
         ResetAllLocations();
         // Generate new recipe and show on board
-        generateNewRecipe();
+        GenerateNewRecipe();
         // Re-enable the VR remote inputs 
         DisableInput(false);
     }
@@ -290,5 +364,10 @@ public class ControllerScript : MonoBehaviour
         {
             basketScripts[i].ResetIngredientLocation();
         }
+    }
+
+    public void DisableSkipTutorialButton()
+    {
+        skipTutorialBoard.SetActive(false);
     }
 }
