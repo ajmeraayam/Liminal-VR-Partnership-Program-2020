@@ -92,6 +92,6 @@ public class RecipeCompletionTimer : MonoBehaviour
                 break;
         }
 
-        controllerScript.SendMessage("StartFailedRecipeCoroutine");
+        controllerScript.SendMessage("OnCompletionTimerEnd");
     }
 }

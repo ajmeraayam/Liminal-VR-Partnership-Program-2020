@@ -5,9 +5,6 @@ using UnityEngine;
 using Liminal.SDK.VR;
 using Liminal.SDK.VR.Input;
 
-/* 
- * Another way is to check if OnPointerClick, OnPointerDown and OnPointerUp does the job better or not
-*/
 public class ControllerScript : MonoBehaviour
 {
     //To disable input if needed
@@ -23,7 +20,7 @@ public class ControllerScript : MonoBehaviour
     int maxActionsForThisRecipe;
     string[] recordedActions;
     public GameObject[] baskets;
-    private IngredientMovementAnimation[] basketScripts;
+    private AnimationHandler[] basketScripts;
     private RecipeCompletionTimer completionTimerScript;
     private RecipeDisplayManager recipeDisplayScript;
     public GameObject startBoard;
@@ -32,6 +29,9 @@ public class ControllerScript : MonoBehaviour
     private GameObject mainBoard;
     private bool tutorialComplete;
     public bool TutorialComplete { set { tutorialComplete = value; } }
+    private bool successCorOn;
+    private bool failureCorOn;
+    private bool corExecuted;
 
     void Start()
     {
@@ -42,7 +42,7 @@ public class ControllerScript : MonoBehaviour
         actionsTaken = 0;
         maxActionsForThisRecipe = 0;
         recordedActions = new string[0];
-        basketScripts = new IngredientMovementAnimation[baskets.Length];
+        basketScripts = new AnimationHandler[baskets.Length];
         InitializeBasketScripts();
         completionTimerScript = gameManager.GetComponent<RecipeCompletionTimer>();
         recipeDisplayScript = gameManager.GetComponent<RecipeDisplayManager>();
@@ -51,6 +51,9 @@ public class ControllerScript : MonoBehaviour
         mainBoard.SetActive(false);
         skipTutorialBoard.SetActive(false);
         tutorialComplete = false;
+        successCorOn = false;
+        failureCorOn = false;
+        corExecuted = false;
     }
 
     // Update is called once per frame
@@ -213,6 +216,7 @@ public class ControllerScript : MonoBehaviour
     // Start the game
     public void StartGame()
     {
+        DisableSkipTutorialButton();
         gameStarted = true;
         DisableInput(false);
         actionsTaken = 0;
@@ -224,7 +228,8 @@ public class ControllerScript : MonoBehaviour
     {
         for(int i = 0; i < baskets.Length; i++)
         {
-            basketScripts[i] = baskets[i].GetComponent<IngredientMovementAnimation>();
+            //basketScripts[i] = baskets[i].GetComponent<IngredientMovementAnimation>();
+            basketScripts[i] = baskets[i].GetComponent<AnimationHandler>();
         }
     }
 
@@ -250,16 +255,7 @@ public class ControllerScript : MonoBehaviour
         // If all the actions are taken, then check all the actions and compare them with the recipe that was generated
         if(actionsTaken == maxActionsForThisRecipe)
         {
-            bool success = true;
-            // Successful or unsuccessful 
-            for(int i = 0; i < currentRecipe.Length; i++)
-            {
-                if(!Equals(currentRecipe[i], recordedActions[i]))
-                {
-                    success = false;
-                    break;
-                }
-            }
+            bool success = CheckIfRecipeCorrect();
 
             // If they match then start the success coroutine. Else start failure coroutine 
             if(success)
@@ -271,9 +267,25 @@ public class ControllerScript : MonoBehaviour
                 StartCoroutine(FailedRecipe());
             }
             actionsTaken = 0;
+            corExecuted = true;
         }
         else
             return;
+    }
+
+    private bool CheckIfRecipeCorrect()
+    {
+        bool success = true;
+        for(int i = 0; i < currentRecipe.Length; i++)
+        {
+            if(!Equals(currentRecipe[i], recordedActions[i]))
+            {
+                success = false;
+                break;
+            }
+        }
+
+        return success;
     }
 
     //Disable or enable input from the controller
@@ -309,6 +321,7 @@ public class ControllerScript : MonoBehaviour
     // generate new recipe. 
     IEnumerator SuccessfulRecipe()
     {
+        successCorOn = true;
         // Don't start this coroutine until all the ongoing animations are not complete 
         while(disableRecipeCoroutine)
             yield return new WaitForSeconds(0.1f);
@@ -329,18 +342,20 @@ public class ControllerScript : MonoBehaviour
         GenerateNewRecipe();
         // Re-enable the VR remote inputs 
         DisableInput(false);
+        successCorOn = false;
     }
 
     // If recipe is unsuccessful then update the score system, show the response through particle system and 
     // generate new recipe.
     IEnumerator FailedRecipe()
     {
+        failureCorOn = true;
         // Don't start this coroutine until all the ongoing animations are not complete 
         while(disableRecipeCoroutine)
             yield return new WaitForSeconds(0.1f);
         
         // Reset the completion timer
-        completionTimerScript.ResetTimer();
+        completionTimerScript.StopTimer();
         //Disable input from VR remote
         DisableInput(true);
         // Run the wrong recipe response coroutine
@@ -355,6 +370,7 @@ public class ControllerScript : MonoBehaviour
         GenerateNewRecipe();
         // Re-enable the VR remote inputs 
         DisableInput(false);
+        failureCorOn = false;
     }
 
     // Reset location of all ingredients to their respective baskets
@@ -369,5 +385,22 @@ public class ControllerScript : MonoBehaviour
     public void DisableSkipTutorialButton()
     {
         skipTutorialBoard.SetActive(false);
+    }
+
+    public void OnCompletionTimerEnd()
+    {
+        // If success or failure coroutine is already running when timer stopped
+        if(successCorOn || failureCorOn)
+        {
+            return;
+        }
+        // If no coroutines were running when timer stopped.
+        else
+        {
+            if(CheckIfRecipeCorrect())
+                return;
+            else
+               StartCoroutine(FailedRecipe()); 
+        }
     }
 }
