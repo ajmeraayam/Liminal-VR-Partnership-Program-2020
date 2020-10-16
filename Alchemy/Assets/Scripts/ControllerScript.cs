@@ -13,11 +13,14 @@ public class ControllerScript : MonoBehaviour
     bool gameStarted = false;
     private GameObject gameManager;
     private LevelHandler levelHandler;
+    private ScoreManager scoreManager;
     private GameObject success_fail_particleSystem;
     private RecipeResultParticles particles;
     string[] currentRecipe;
-    int actionsTaken;
-    int maxActionsForThisRecipe;
+    private int actionsTaken;
+    public int ActionsTaken { get { return actionsTaken; } }
+    private int maxActionsForThisRecipe;
+    public int MaxActionsForthisRecipe { get { return maxActionsForThisRecipe; } }
     string[] recordedActions;
     public GameObject[] baskets;
     private AnimationHandler[] basketScripts;
@@ -28,7 +31,7 @@ public class ControllerScript : MonoBehaviour
     private Tutorial tutorialScript;
     private GameObject mainBoard;
     private bool tutorialComplete;
-    public bool TutorialComplete { set { tutorialComplete = value; } }
+    public bool TutorialComplete { set { tutorialComplete = value; } get { return tutorialComplete; } }
     private bool successCorOn;
     private bool failureCorOn;
     private bool corExecuted;
@@ -38,6 +41,7 @@ public class ControllerScript : MonoBehaviour
         gameManager = GameObject.Find("Game Manager");
         success_fail_particleSystem = GameObject.Find("Success Fail PS");
         levelHandler = gameManager.GetComponent<LevelHandler>();
+        scoreManager = gameManager.GetComponent<ScoreManager>();
         particles = success_fail_particleSystem.GetComponent<RecipeResultParticles>();
         actionsTaken = 0;
         maxActionsForThisRecipe = 0;
@@ -152,7 +156,7 @@ public class ControllerScript : MonoBehaviour
                 recordedActions[actionsTaken] = "g";
                 actionsTaken++;
             }
-
+            scoreManager.UpdateScores();
             CheckActions();
         }
     }
@@ -245,6 +249,7 @@ public class ControllerScript : MonoBehaviour
         maxActionsForThisRecipe = levelHandler.getMaxActions();
         recordedActions = new string[maxActionsForThisRecipe];
         completionTimerScript.StartTimer();
+        scoreManager.UpdateScores();
     }
 
     // After every click on ingredients or pot, check if user has completed specified number of actions.

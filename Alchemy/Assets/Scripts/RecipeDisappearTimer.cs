@@ -12,7 +12,7 @@ public class RecipeDisappearTimer : MonoBehaviour
     private Timer timerDisplayScript;
     private RecipeDisplayManager recipeDisplayManager;
     private Coroutine routine = null;
-    
+
     void Awake()
     {
         timerDisplayScript = GameObject.Find("Timer Disappear").GetComponent<Timer>();
@@ -25,7 +25,7 @@ public class RecipeDisappearTimer : MonoBehaviour
         timerComplete = false;
         controllerScript = GameObject.Find("VRAvatar").GetComponent<ControllerScript>();
         timer = 8;
-        timerDisplayScript.SetDuration((float) timer);
+        timerDisplayScript.SetDuration((float)timer);
     }
 
     public void UpdateLevel(int l)
@@ -35,40 +35,49 @@ public class RecipeDisappearTimer : MonoBehaviour
 
     private void ResetTimer()
     {
-        if(level == 3)
+        if (level == 3)
         {
             timer = 15;
-            timerDisplayScript.SetDuration((float) timer);
+            timerDisplayScript.SetDuration((float)timer);
         }
-        else if(level == 4)
+        else if (level == 4)
         {
             timer = 10;
-            timerDisplayScript.SetDuration((float) timer);
+            timerDisplayScript.SetDuration((float)timer);
         }
-        else if(level == 5)
+        else if (level == 5)
         {
             timer = 7;
-            timerDisplayScript.SetDuration((float) timer);
+            timerDisplayScript.SetDuration((float)timer);
         }
     }
 
     public void StartTimer()
     {
-        if(level > 2)
+        if (level > 2)
             routine = StartCoroutine(TimerCoroutine());
+    }
+
+    public void StopTimer()
+    {
+        if (level > 2)
+        {
+            StopCoroutine(routine);
+            ResetTimer();
+        }
     }
 
     IEnumerator TimerCoroutine()
     {
         yield return new WaitForSeconds(2f);
         // Send the timer value to the display board
-        while(true)
+        while (true)
         {
             yield return new WaitForSeconds(1f);
             timer -= 1;
             //Send the timer value to the display board
-            timerDisplayScript.Countdown((float) timer);
-            if(timer <= 0)
+            timerDisplayScript.Countdown((float)timer);
+            if (timer <= 0)
                 break;
         }
         // Remove recipe from board

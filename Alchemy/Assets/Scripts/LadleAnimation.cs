@@ -32,7 +32,7 @@ public class LadleAnimation : MonoBehaviour
         //Start the coroutine to move the ladle in circular motion
         StartCoroutine(invokeAnimation());
     }
-    
+
     //Invokes ladle animation for 6 seconds
     IEnumerator invokeAnimation()
     {
@@ -40,9 +40,9 @@ public class LadleAnimation : MonoBehaviour
         GetComponent<ParticleSystem>().Play();
         float timePassed = 0f;
         //For 6 seconds, keep calling moveLadle method
-        while(timePassed < 4f)
+        while (timePassed < 2f)
         {
-            if(!source.isPlaying)
+            if (!source.isPlaying)
                 source.PlayOneShot(clip);
             Invoke("moveLadle", 0.0001f);
             timePassed += Time.deltaTime;
@@ -63,9 +63,9 @@ public class LadleAnimation : MonoBehaviour
         //Speed of ladle is set to PI, so the ladle will complete a circle in 2 seconds
         timeCounter -= Time.deltaTime * Mathf.PI;
         //Move the ladle in x and z axis, in circular motion
-        float x = Mathf.Cos (timeCounter) * radius;
-        float z = Mathf.Sin (timeCounter) * radius;
+        float x = Mathf.Cos(timeCounter) * radius;
+        float z = Mathf.Sin(timeCounter) * radius;
         float y = transform.localPosition.y;
-        transform.localPosition = new Vector3 (x, y, z);
+        transform.localPosition = new Vector3(x, y, z);
     }
 }

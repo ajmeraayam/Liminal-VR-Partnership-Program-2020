@@ -25,7 +25,7 @@ public class RecipeCompletionTimer : MonoBehaviour
         timerComplete = false;
         controllerScript = GameObject.Find("VRAvatar").GetComponent<ControllerScript>();
         timer = 60;
-        timerDisplayScript.SetDuration((float) timer);
+        timerDisplayScript.SetDuration((float)timer);
         disappearTimer = GetComponent<RecipeDisappearTimer>();
     }
 
@@ -36,32 +36,32 @@ public class RecipeCompletionTimer : MonoBehaviour
 
     public void ResetTimer()
     {
-        if(level == 2)
+        if (level == 2)
         {
             timer = 60;
-            timerDisplayScript.SetDuration((float) timer);
+            timerDisplayScript.SetDuration((float)timer);
         }
-        else if(level == 3)
+        else if (level == 3)
         {
             timer = 55;
-            timerDisplayScript.SetDuration((float) timer);
+            timerDisplayScript.SetDuration((float)timer);
         }
-        else if(level == 4)
+        else if (level == 4)
         {
             timer = 50;
-            timerDisplayScript.SetDuration((float) timer);
+            timerDisplayScript.SetDuration((float)timer);
         }
-        else if(level == 5)
+        else if (level == 5)
         {
             timer = 45;
-            timerDisplayScript.SetDuration((float) timer);
+            timerDisplayScript.SetDuration((float)timer);
         }
         isRunning = false;
     }
 
     public void StartTimer()
     {
-        if(level > 1 && !isRunning)
+        if (level > 1 && !isRunning)
         {
             routine = StartCoroutine(TimerCoroutine());
         }
@@ -69,10 +69,14 @@ public class RecipeCompletionTimer : MonoBehaviour
 
     public void StopTimer()
     {
-        if(level > 1)
+        if (level > 1)
         {
             StopCoroutine(routine);
             ResetTimer();
+            if (level > 2)
+            {
+                disappearTimer.StopTimer();
+            }
         }
     }
 
@@ -82,13 +86,13 @@ public class RecipeCompletionTimer : MonoBehaviour
         yield return new WaitForSeconds(2f);
         disappearTimer.StartTimer();
         // Send the timer value to the display board
-        while(true)
+        while (true)
         {
-            timerDisplayScript.Countdown((float) timer);
+            timerDisplayScript.Countdown((float)timer);
             yield return new WaitForSeconds(1f);
             timer--;
             //Send the timer value to the display board
-            if(timer <= 0)
+            if (timer <= 0)
                 break;
         }
 

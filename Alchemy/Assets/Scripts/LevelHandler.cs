@@ -6,6 +6,7 @@ public class LevelHandler : MonoBehaviour
 {
     // Stores the current level (1 to 5)
     private int currentRecipeLevel;
+    public int CurrentRecipeLevel { get { return currentRecipeLevel; } }
     private int correctStreak;
     private int score;
     public int CorrectStreak { get { return correctStreak;} }

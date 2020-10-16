@@ -16,6 +16,7 @@ public class RecipeDisplayManager : MonoBehaviour
     private float boardWidth;
     private float displayableWidth;
     private GameObject[] actionObjects;
+    private float yPosForSprites;
 
     void Awake()
     {
@@ -23,6 +24,7 @@ public class RecipeDisplayManager : MonoBehaviour
         recipeBoardRectTransform = recipeBoard.GetComponent<RectTransform>();
         boardWidth = recipeBoardRectTransform.rect.width;
         displayableWidth = boardWidth - 35f;
+        yPosForSprites = 12f;
     }
 
     public void DisplayRecipeSprites(string[] recipe)
@@ -79,18 +81,18 @@ public class RecipeDisplayManager : MonoBehaviour
         
         // Setting the sprite that should be at the middle to (0, 0, 0).
         // It will place the sprite in the middle of the board
-        actionObjects[mid].transform.localPosition = new Vector3(0f, 0f, 0f);
+        actionObjects[mid].transform.localPosition = new Vector3(0f, yPosForSprites, 0f);
         // Sprites stored in the array before the mid index should be on the left side of the board
         for(int i = mid - 1; i >= 0; i--)
         {
             float x_loc = 0f - ((mid - i) * separation);
-            actionObjects[i].transform.localPosition = new Vector3(x_loc, 0f, 0f);
+            actionObjects[i].transform.localPosition = new Vector3(x_loc, yPosForSprites, 0f);
         }
         // Sprites stored in the array after the mid index should be on the right side of the board
         for(int i = mid + 1; i < totalIcons; i++)
         {
             float x_loc = 0f + ((i - mid) * separation);
-            actionObjects[i].transform.localPosition = new Vector3(x_loc, 0f, 0f);
+            actionObjects[i].transform.localPosition = new Vector3(x_loc, yPosForSprites, 0f);
         }
     }
 
