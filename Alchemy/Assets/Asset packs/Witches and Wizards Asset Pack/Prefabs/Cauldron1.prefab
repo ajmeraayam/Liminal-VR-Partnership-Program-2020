@@ -453,7 +453,7 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 7299060884390292145}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!198 &6480875428709743014
 ParticleSystem:
   m_ObjectHideFlags: 0
