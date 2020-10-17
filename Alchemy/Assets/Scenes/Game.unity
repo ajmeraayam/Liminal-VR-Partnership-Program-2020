@@ -132,6 +132,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pot&Ladle
       objectReference: {fileID: 0}
+    - target: {fileID: 3238669771505867303, guid: c3df14a5ed2da1a4db4a3833a0d4e705,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3238669771505867302, guid: c3df14a5ed2da1a4db4a3833a0d4e705,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -429,7 +434,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Score
+  m_Text: Total
 --- !u!222 &187081215
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3162,6 +3167,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Baskets
       objectReference: {fileID: 0}
+    - target: {fileID: 3103423742046212661, guid: bff05405098121949b538a20cb2d12cf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3103423742046212658, guid: bff05405098121949b538a20cb2d12cf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3444,7 +3454,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Current
+  m_Text: Streak
 --- !u!1 &1521650405
 GameObject:
   m_ObjectHideFlags: 0
@@ -3550,6 +3560,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Potion
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434432780171953157, guid: 643f895d571e3234fba7872202268b7f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7488719379348012291, guid: 643f895d571e3234fba7872202268b7f,
         type: 3}
@@ -4496,6 +4511,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wood
+      objectReference: {fileID: 0}
+    - target: {fileID: 1336719723226340086, guid: b959bc36fc4cd0e41802df1ff6efc2ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1336719723226339977, guid: b959bc36fc4cd0e41802df1ff6efc2ad,
         type: 3}

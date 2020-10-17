@@ -18,13 +18,7 @@ public class ScoreManager : MonoBehaviour
         controllerScript = GameObject.Find("VRAvatar").GetComponent<ControllerScript>();
         levelHandlerScript = GetComponent<LevelHandler>();
         totalScore.text = "Total: " + 0;
-        streak.text = "Total: " + 0;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        streak.text = "Streak: " + 0;
     }
 
     public void UpdateScores()
@@ -32,7 +26,7 @@ public class ScoreManager : MonoBehaviour
         int total = levelHandlerScript.Score;
         int current = levelHandlerScript.CorrectStreak;
         totalScore.text = "Total: " + total;
-        streak.text = "Current: " + current;
+        streak.text = "Streak: " + current;
         if (controllerScript.TutorialComplete)
         {
             currentLevel.text = "Current Level: " + levelHandlerScript.CurrentRecipeLevel;
