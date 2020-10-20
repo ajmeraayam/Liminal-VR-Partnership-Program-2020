@@ -35,6 +35,7 @@ public class ControllerScript : MonoBehaviour
     private bool successCorOn;
     private bool failureCorOn;
     private bool corExecuted;
+    private ChangingSkybox changingSkybox;
 
     void Start()
     {
@@ -58,6 +59,7 @@ public class ControllerScript : MonoBehaviour
         successCorOn = false;
         failureCorOn = false;
         corExecuted = false;
+        changingSkybox = gameManager.GetComponent<ChangingSkybox>();
     }
 
     // Update is called once per frame
@@ -77,7 +79,7 @@ public class ControllerScript : MonoBehaviour
         var hitResult = inputDevice.Pointer.CurrentRaycastResult;
         
         //Process button clicks only if the controller is pointed to an object and input is enabled
-        if(hitResult.gameObject != null)
+        /*if(hitResult.gameObject != null)
         {
             // If tutorial is complete
             if(tutorialComplete)
@@ -102,6 +104,11 @@ public class ControllerScript : MonoBehaviour
                     }
                 }
             }
+        }*/
+
+        if(inputDevice.GetButtonDown(VRButton.One))
+        {
+            changingSkybox.Change();
         }
     }
 
