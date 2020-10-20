@@ -79,7 +79,7 @@ public class ControllerScript : MonoBehaviour
         var hitResult = inputDevice.Pointer.CurrentRaycastResult;
         
         //Process button clicks only if the controller is pointed to an object and input is enabled
-        /*if(hitResult.gameObject != null)
+        if(hitResult.gameObject != null)
         {
             // If tutorial is complete
             if(tutorialComplete)
@@ -104,9 +104,9 @@ public class ControllerScript : MonoBehaviour
                     }
                 }
             }
-        }*/
+        }
 
-        if(inputDevice.GetButtonDown(VRButton.One))
+        if(inputDevice.GetButtonDown(VRButton.Two))
         {
             changingSkybox.Change();
         }
