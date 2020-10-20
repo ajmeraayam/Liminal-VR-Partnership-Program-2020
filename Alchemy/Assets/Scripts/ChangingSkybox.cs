@@ -7,6 +7,7 @@ public class ChangingSkybox : MonoBehaviour
     public Material[] skyboxMaterials;
     private int arraySize;
     private int currentSkyboxIndex;
+    // Transition time is total time of transition. i.e. Fading old skybox and bringing up new skybox
     public float transitionTime;
 
     // Start is called before the first frame update
@@ -28,10 +29,10 @@ public class ChangingSkybox : MonoBehaviour
     IEnumerator TransitionSkybox()
     {
         float elapsedTime = 0.0f;
-        while (elapsedTime < transitionTime)
+        while (elapsedTime < (transitionTime/2))
         {
             elapsedTime += Time.deltaTime;
-            float currentAlpha = Mathf.Lerp(1, 0.1f, Mathf.Clamp01(elapsedTime / transitionTime));
+            float currentAlpha = Mathf.Lerp(1, 0.1f, Mathf.Clamp01(elapsedTime / (transitionTime/2)));
             RenderSettings.skybox.SetFloat("_Exposure", currentAlpha);
             yield return new WaitForEndOfFrame();
         }
@@ -51,10 +52,10 @@ public class ChangingSkybox : MonoBehaviour
 
         // https://answers.unity.com/questions/930780/setting-skybox-exposure-through-script.html
         elapsedTime = 0.0f;
-        while (elapsedTime < transitionTime)
+        while (elapsedTime < (transitionTime/2))
         {
             elapsedTime += Time.deltaTime;
-            float currentAlpha = Mathf.Lerp(0.1f, 1, Mathf.Clamp01(elapsedTime / transitionTime));
+            float currentAlpha = Mathf.Lerp(0.1f, 1, Mathf.Clamp01(elapsedTime / (transitionTime/2)));
             RenderSettings.skybox.SetFloat("_Exposure", currentAlpha);
             yield return new WaitForEndOfFrame();
         }
