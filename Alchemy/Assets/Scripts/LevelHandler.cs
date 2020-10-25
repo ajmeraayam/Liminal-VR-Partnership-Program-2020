@@ -22,6 +22,10 @@ public class LevelHandler : MonoBehaviour
     int maxActions;
     private GameObject completionTimerDisplayObject;
     private GameObject disappearTimerDisplayObject;
+    public GameObject levelUpConfetti;
+    private ParticleSystem levelUpParticles;
+    public AudioClip levelUpClip;
+    public AudioSource source;
 
     void Awake()
     {
@@ -38,6 +42,8 @@ public class LevelHandler : MonoBehaviour
         currentRecipeLevel = 1;
         maxActions = 0;
         score = 0;
+        levelUpParticles = levelUpConfetti.GetComponent<ParticleSystem>();
+        //levelUpConfetti.transform.position = new Vector3();
     }
 
     // Manages level of recipes to be generated
@@ -50,6 +56,7 @@ public class LevelHandler : MonoBehaviour
                 currentRecipeLevel++;
                 correctStreak = 0;
                 consecWrongStreak = 0;
+                StartCoroutine(PlayLevelUpParticles());
             }
         }
         else if(currentRecipeLevel == 2)
@@ -59,6 +66,7 @@ public class LevelHandler : MonoBehaviour
                 currentRecipeLevel++;
                 correctStreak = 0;
                 consecWrongStreak = 0;
+                StartCoroutine(PlayLevelUpParticles());
             }
             if(consecWrongStreak == 5)
             {
@@ -74,6 +82,7 @@ public class LevelHandler : MonoBehaviour
                 currentRecipeLevel++;
                 correctStreak = 0;
                 consecWrongStreak = 0;
+                StartCoroutine(PlayLevelUpParticles());
             }
             if(consecWrongStreak == 5)
             {
@@ -89,6 +98,7 @@ public class LevelHandler : MonoBehaviour
                 currentRecipeLevel++;
                 correctStreak = 0;
                 consecWrongStreak = 0;
+                StartCoroutine(PlayLevelUpParticles());
             }
             if(consecWrongStreak == 4)
             {
@@ -110,6 +120,8 @@ public class LevelHandler : MonoBehaviour
         disappearTimer.UpdateLevel(currentRecipeLevel);
         EnableCompletionTimer(currentRecipeLevel);
         EnableDisappearTimer(currentRecipeLevel);
+        //here
+
     }
 
     private void EnableCompletionTimer(int level)
@@ -200,5 +212,12 @@ public class LevelHandler : MonoBehaviour
     public void recipeGeneratable()
     {
         isRecipeGeneratable = true;
+    }
+
+    private IEnumerator PlayLevelUpParticles()
+    {
+        yield return new WaitForSeconds(1f);
+        levelUpParticles.Play();
+        source.PlayOneShot(levelUpClip);
     }
 }

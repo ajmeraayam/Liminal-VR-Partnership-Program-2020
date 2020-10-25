@@ -8,6 +8,9 @@ public class RecipeResultParticles : MonoBehaviour
     private ControllerScript controllerScript;
     private ParticleSystem success;
     private ParticleSystem fail;
+    public AudioClip successClip;
+    public AudioClip failClip;
+    private AudioSource source;
 
     void Start()
     {
@@ -16,15 +19,18 @@ public class RecipeResultParticles : MonoBehaviour
         failObject = transform.Find("PoofFail");
         success = successObject.GetComponent<ParticleSystem>();
         fail = failObject.GetComponent<ParticleSystem>();
+        source = GetComponent<AudioSource>();
     }
 
     public void PlaySuccessParticles()
     {
         success.Play(true);
+        source.PlayOneShot(successClip);
     }
 
     public void PlayFailureParticles()
     {
         fail.Play(true);
+        source.PlayOneShot(failClip);
     }
 }

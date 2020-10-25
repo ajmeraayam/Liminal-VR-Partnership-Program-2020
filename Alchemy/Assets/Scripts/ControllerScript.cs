@@ -8,7 +8,7 @@ using Liminal.SDK.VR.Input;
 public class ControllerScript : MonoBehaviour
 {
     //To disable input if needed
-    bool disableInput = false;
+    bool disableInput = true;
     bool disableRecipeCoroutine = false;
     bool gameStarted = false;
     private GameObject gameManager;
