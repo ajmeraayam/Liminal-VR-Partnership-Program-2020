@@ -106,7 +106,6 @@ public class Timer : MonoBehaviour
 	//Update is called once per frame
 	/*void Update () 
     {
-        Countdown();
     }*/
 
     public void SetDuration(float dur)

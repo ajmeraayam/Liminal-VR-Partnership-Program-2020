@@ -70,6 +70,7 @@ public class Tutorial : MonoBehaviour
         DeactivateAllSpotlights();
         displayManagerScript.DisappearRecipe();
         instructionText.text = "Tutorial Completed! Good Luck!";
+        // disappear button here
         yield return new WaitForSeconds(5f);
         controllerScript.TutorialComplete = true;
         instructionText.text = "";

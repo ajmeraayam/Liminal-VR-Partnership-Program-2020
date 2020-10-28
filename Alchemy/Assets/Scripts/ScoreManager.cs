@@ -29,9 +29,9 @@ public class ScoreManager : MonoBehaviour
         streak.text = "Streak: " + current;
         if (controllerScript.TutorialComplete)
         {
-            currentLevel.text = "Current Level: " + levelHandlerScript.CurrentRecipeLevel;
+            currentLevel.text = "Level: " + levelHandlerScript.CurrentRecipeLevel;
             int a_left = controllerScript.MaxActionsForthisRecipe - controllerScript.ActionsTaken;
-            actionsLeft.text = "Recipe Actions Left: " + a_left;
+            actionsLeft.text = "Actions Left: " + a_left;
         }
     }
 }
