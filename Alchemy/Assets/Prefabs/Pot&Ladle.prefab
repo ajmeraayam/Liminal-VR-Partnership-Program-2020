@@ -356,11 +356,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3238669771505867302}
     m_Modifications:
-    - target: {fileID: 1621403690805722469, guid: 9599fd22961458046a608e0f264dcabc,
-        type: 3}
-      propertyPath: m_Name
-      value: Pot SpotLight
-      objectReference: {fileID: 0}
     - target: {fileID: 1621403690805722468, guid: 9599fd22961458046a608e0f264dcabc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -416,10 +411,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1621403689464974235, guid: 9599fd22961458046a608e0f264dcabc,
+    - target: {fileID: 1621403690805722469, guid: 9599fd22961458046a608e0f264dcabc,
         type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.12
+      propertyPath: m_Name
+      value: Pot SpotLight
       objectReference: {fileID: 0}
     - target: {fileID: 1621403690633090304, guid: 9599fd22961458046a608e0f264dcabc,
         type: 3}
@@ -464,7 +459,7 @@ PrefabInstance:
     - target: {fileID: 1621403689464974232, guid: 9599fd22961458046a608e0f264dcabc,
         type: 3}
       propertyPath: m_Intensity
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1621403689464974232, guid: 9599fd22961458046a608e0f264dcabc,
         type: 3}
@@ -480,6 +475,11 @@ PrefabInstance:
         type: 3}
       propertyPath: fadeRadius
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1621403689464974235, guid: 9599fd22961458046a608e0f264dcabc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9599fd22961458046a608e0f264dcabc, type: 3}
