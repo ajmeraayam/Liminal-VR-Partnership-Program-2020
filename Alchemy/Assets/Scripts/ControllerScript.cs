@@ -106,10 +106,10 @@ public class ControllerScript : MonoBehaviour
             }
         }
 
-        if(inputDevice.GetButtonDown(VRButton.Two))
+        /*if(inputDevice.GetButtonDown(VRButton.Two))
         {
             changingSkybox.Change();
-        }
+        }*/
     }
 
     //Handles the input and actions to be taken when button is clicked

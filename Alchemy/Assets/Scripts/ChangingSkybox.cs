@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ChangingSkybox : MonoBehaviour
 {
+    // Store the skyboxes for each level. Skyboxes added to the array through inspector (DON'T try to add through scripts. May create conflicts)
     public Material[] skyboxMaterials;
-    private int arraySize;
     private int currentSkyboxIndex;
     // Transition time is total time of transition. i.e. Fading old skybox and bringing up new skybox
     public float transitionTime;
@@ -13,22 +13,24 @@ public class ChangingSkybox : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        arraySize = skyboxMaterials.Length;
         currentSkyboxIndex = 0;
+        // Select the default skybox which corresponds to level 1 and set its exposure to 1
         RenderSettings.skybox = skyboxMaterials[currentSkyboxIndex]; 
         RenderSettings.skybox.SetFloat("_Exposure", 1f);
         transitionTime = 1f;
     }
 
-    // For game, pass level as parameter
-    public void Change()
+    // This method triggers the transition coroutine to change the skybox
+    public void Change(int level)
     {
-        StartCoroutine(TransitionSkybox());
+        StartCoroutine(TransitionSkybox(level));
     }
 
-    IEnumerator TransitionSkybox()
+    // Removes the current skybox and adds a new skybox depending on the level in the game
+    IEnumerator TransitionSkybox(int level)
     {
         float elapsedTime = 0.0f;
+        // Gradually reduce the exposure of the current skybox 
         while (elapsedTime < (transitionTime/2))
         {
             elapsedTime += Time.deltaTime;
@@ -37,7 +39,7 @@ public class ChangingSkybox : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
-        currentSkyboxIndex++;
+        /*currentSkyboxIndex++;
 
         if(currentSkyboxIndex >= arraySize)
         {
@@ -47,11 +49,14 @@ public class ChangingSkybox : MonoBehaviour
         else
         {
             RenderSettings.skybox = skyboxMaterials[currentSkyboxIndex];
-        }
+        }*/
+        // Select the skybox according to the current level
+        RenderSettings.skybox = skyboxMaterials[level - 1];
         RenderSettings.skybox.SetFloat("_Exposure", 0.1f);
 
         // https://answers.unity.com/questions/930780/setting-skybox-exposure-through-script.html
         elapsedTime = 0.0f;
+        // Gradually increase the exposure of the new skybox
         while (elapsedTime < (transitionTime/2))
         {
             elapsedTime += Time.deltaTime;
