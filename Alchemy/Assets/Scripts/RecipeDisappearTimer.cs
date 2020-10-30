@@ -7,10 +7,12 @@ public class RecipeDisappearTimer : MonoBehaviour
     //Suppose the player has 30 seconds to complete the recipe
     private int timer = 0;
     private int level;
+    // TRUE if timer is complete else FALSE
     private bool timerComplete;
     private ControllerScript controllerScript;
     private Timer timerDisplayScript;
     private RecipeDisplayManager recipeDisplayManager;
+    // Refernce to the timer coroutine
     private Coroutine routine = null;
 
     void Awake()
@@ -28,36 +30,43 @@ public class RecipeDisappearTimer : MonoBehaviour
         timerDisplayScript.SetDuration((float)timer);
     }
 
+    // Update the level
     public void UpdateLevel(int l)
     {
         level = l;
     }
 
+    // Reset the timer according to the level
     private void ResetTimer()
     {
         if (level == 3)
         {
             timer = 15;
+            // Set display to show sprite according to the duration
             timerDisplayScript.SetDuration((float)timer);
         }
         else if (level == 4)
         {
             timer = 10;
+            // Set display to show sprite according to the duration
             timerDisplayScript.SetDuration((float)timer);
         }
         else if (level == 5)
         {
             timer = 7;
+            // Set display to show sprite according to the duration
             timerDisplayScript.SetDuration((float)timer);
         }
     }
 
+    // Trigger the coroutine if the current level is above level 2 and the timer isn't already running
     public void StartTimer()
     {
         if (level > 2)
             routine = StartCoroutine(TimerCoroutine());
     }
 
+    // Stop the ongoing timer coroutine and reset the timer.
     public void StopTimer()
     {
         if (level > 2)
@@ -67,6 +76,7 @@ public class RecipeDisappearTimer : MonoBehaviour
         }
     }
 
+    // Coroutine that resembles a clock
     IEnumerator TimerCoroutine()
     {
         yield return new WaitForSeconds(2f);

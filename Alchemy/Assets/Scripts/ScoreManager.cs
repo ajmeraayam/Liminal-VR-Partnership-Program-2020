@@ -21,6 +21,7 @@ public class ScoreManager : MonoBehaviour
         streak.text = "Streak: " + 0;
     }
 
+    // Update total score and streak score. Update level and max actions display
     public void UpdateScores()
     {
         int total = levelHandlerScript.Score;

@@ -10,6 +10,7 @@ public class RecipeDisplayManager : MonoBehaviour
     public GameObject magicItem;
     public GameObject arrow;
     public GameObject mix;
+    // Reference to the recipe board
     public GameObject recipeBoard;
     private Transform recipeBoardLayout;
     private RectTransform recipeBoardRectTransform;

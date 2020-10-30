@@ -7,11 +7,15 @@ public class RecipeCompletionTimer : MonoBehaviour
     //Suppose the player has 30 seconds to complete the recipe
     private int timer;
     private Timer timerDisplayScript;
+    // Current level
     private int level;
+    // TRUE if timer is complete else FALSE
     private bool timerComplete;
     private ControllerScript controllerScript;
     private RecipeDisappearTimer disappearTimer;
+    // TRUE if timer is on, else FALSE
     private bool isRunning = false;
+    // Refernce to the timer coroutine
     private Coroutine routine = null;
 
     void Awake()
@@ -21,6 +25,7 @@ public class RecipeCompletionTimer : MonoBehaviour
 
     void Start()
     {
+        // Initially level 1
         level = 1;
         timerComplete = false;
         controllerScript = GameObject.Find("VRAvatar").GetComponent<ControllerScript>();
@@ -29,36 +34,43 @@ public class RecipeCompletionTimer : MonoBehaviour
         disappearTimer = GetComponent<RecipeDisappearTimer>();
     }
 
+    // Update the level
     public void UpdateLevel(int l)
     {
         level = l;
     }
 
+    // Reset the timer according to the level
     public void ResetTimer()
     {
         if (level == 2)
         {
             timer = 60;
+            // Set display to show sprite according to the duration
             timerDisplayScript.SetDuration((float)timer);
         }
         else if (level == 3)
         {
             timer = 55;
+            // Set display to show sprite according to the duration
             timerDisplayScript.SetDuration((float)timer);
         }
         else if (level == 4)
         {
             timer = 50;
+            // Set display to show sprite according to the duration
             timerDisplayScript.SetDuration((float)timer);
         }
         else if (level == 5)
         {
             timer = 45;
+            // Set display to show sprite according to the duration
             timerDisplayScript.SetDuration((float)timer);
         }
         isRunning = false;
     }
 
+    // Trigger the coroutine if the current level is above level 1 and the timer isn't already running
     public void StartTimer()
     {
         if (level > 1 && !isRunning)
@@ -67,6 +79,7 @@ public class RecipeCompletionTimer : MonoBehaviour
         }
     }
 
+    // Stop the ongoing timer coroutine and reset the timer. Also stop the disappear timer if current level is above level 2
     public void StopTimer()
     {
         if (level > 1)
@@ -80,6 +93,7 @@ public class RecipeCompletionTimer : MonoBehaviour
         }
     }
 
+    // Coroutine that resembles a clock
     IEnumerator TimerCoroutine()
     {
         isRunning = true;

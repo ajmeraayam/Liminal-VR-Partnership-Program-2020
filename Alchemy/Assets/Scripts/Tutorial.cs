@@ -71,6 +71,7 @@ public class Tutorial : MonoBehaviour
         displayManagerScript.DisappearRecipe();
         instructionText.text = "Tutorial Completed! Good Luck!";
         // disappear button here
+        controllerScript.DisableSkipTutorialButton();
         yield return new WaitForSeconds(5f);
         controllerScript.TutorialComplete = true;
         instructionText.text = "";
@@ -113,7 +114,7 @@ public class Tutorial : MonoBehaviour
 
     private IEnumerator SkipTute()
     {
-        controllerScript.DisableSkipTutorialButton();
+        controllerScript.DisableTutorialBoard();
         while(controllerScript.IsRecipeCoroutineDisabled())
         {
             yield return new WaitForEndOfFrame();

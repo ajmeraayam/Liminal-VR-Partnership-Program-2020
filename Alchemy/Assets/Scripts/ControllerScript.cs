@@ -227,7 +227,7 @@ public class ControllerScript : MonoBehaviour
     // Start the game
     public void StartGame()
     {
-        DisableSkipTutorialButton();
+        DisableTutorialBoard();
         gameStarted = true;
         DisableInput(false);
         actionsTaken = 0;
@@ -239,7 +239,6 @@ public class ControllerScript : MonoBehaviour
     {
         for(int i = 0; i < baskets.Length; i++)
         {
-            //basketScripts[i] = baskets[i].GetComponent<IngredientMovementAnimation>();
             basketScripts[i] = baskets[i].GetComponent<AnimationHandler>();
         }
     }
@@ -394,9 +393,17 @@ public class ControllerScript : MonoBehaviour
         }
     }
 
-    public void DisableSkipTutorialButton()
+    // Disables the entire tutorial board
+    public void DisableTutorialBoard()
     {
         skipTutorialBoard.SetActive(false);
+    }
+
+    // Disables the skip tutorial button
+    public void DisableSkipTutorialButton()
+    {
+        Transform skipButton = skipTutorialBoard.transform.Find("Layout").Find("Skip Button");
+        skipButton.gameObject.SetActive(false);   
     }
 
     public void OnCompletionTimerEnd()
