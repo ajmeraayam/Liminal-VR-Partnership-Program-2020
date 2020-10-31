@@ -52,8 +52,8 @@ public class LevelHandler : MonoBehaviour
     {
         if(currentRecipeLevel == 1)
         {
-            // If 3 consecutive correct recipes then increase the level, reset all the variables and play level up animation 
-            if(correctStreak == 3)
+            // If 4 consecutive correct recipes then increase the level, reset all the variables and play level up animation 
+            if(correctStreak == 4)
             {
                 currentRecipeLevel++;
                 correctStreak = 0;
@@ -71,42 +71,6 @@ public class LevelHandler : MonoBehaviour
                 consecWrongStreak = 0;
                 StartCoroutine(PlayLevelUpAnimation());
             }
-            // If 5 consecutive wrong recipes then decrease the level and reset all the variables
-            if(consecWrongStreak == 5)
-            {
-                currentRecipeLevel--;
-                correctStreak = 0;
-                consecWrongStreak = 0;
-            }
-        }
-        else if(currentRecipeLevel == 3)
-        {
-            // If 15 consecutive correct recipes then increase the level, reset all the variables and play level up animation
-            if(correctStreak == 15)
-            {
-                currentRecipeLevel++;
-                correctStreak = 0;
-                consecWrongStreak = 0;
-                StartCoroutine(PlayLevelUpAnimation());
-            }
-            // If 5 consecutive wrong recipes then decrease the level and reset all the variables
-            if(consecWrongStreak == 5)
-            {
-                currentRecipeLevel--;
-                correctStreak = 0;
-                consecWrongStreak = 0;
-            }
-        }
-        else if(currentRecipeLevel == 4)
-        {
-            // If 20 consecutive correct recipes then increase the level, reset all the variables and play level up animation
-            if(correctStreak == 20)
-            {
-                currentRecipeLevel++;
-                correctStreak = 0;
-                consecWrongStreak = 0;
-                StartCoroutine(PlayLevelUpAnimation());
-            }
             // If 4 consecutive wrong recipes then decrease the level and reset all the variables
             if(consecWrongStreak == 4)
             {
@@ -115,10 +79,46 @@ public class LevelHandler : MonoBehaviour
                 consecWrongStreak = 0;
             }
         }
+        else if(currentRecipeLevel == 3)
+        {
+            // If 6 consecutive correct recipes then increase the level, reset all the variables and play level up animation
+            if(correctStreak == 6)
+            {
+                currentRecipeLevel++;
+                correctStreak = 0;
+                consecWrongStreak = 0;
+                StartCoroutine(PlayLevelUpAnimation());
+            }
+            // If 3 consecutive wrong recipes then decrease the level and reset all the variables
+            if(consecWrongStreak == 3)
+            {
+                currentRecipeLevel--;
+                correctStreak = 0;
+                consecWrongStreak = 0;
+            }
+        }
+        else if(currentRecipeLevel == 4)
+        {
+            // If 7 consecutive correct recipes then increase the level, reset all the variables and play level up animation
+            if(correctStreak == 7)
+            {
+                currentRecipeLevel++;
+                correctStreak = 0;
+                consecWrongStreak = 0;
+                StartCoroutine(PlayLevelUpAnimation());
+            }
+            // If 3 consecutive wrong recipes then decrease the level and reset all the variables
+            if(consecWrongStreak == 3)
+            {
+                currentRecipeLevel--;
+                correctStreak = 0;
+                consecWrongStreak = 0;
+            }
+        }
         else if(currentRecipeLevel == 5)
         {
-            // If 4 consecutive wrong recipes then decrease the level and reset all the variables
-            if(consecWrongStreak == 3)
+            // If 2 consecutive wrong recipes then decrease the level and reset all the variables
+            if(consecWrongStreak == 2)
             {
                 currentRecipeLevel--;
                 correctStreak = 0;

@@ -53,7 +53,7 @@ public class RecipeDisappearTimer : MonoBehaviour
         }
         else if (level == 5)
         {
-            timer = 7;
+            timer = 8;
             // Set display to show sprite according to the duration
             timerDisplayScript.SetDuration((float)timer);
         }

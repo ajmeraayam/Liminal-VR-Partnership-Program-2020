@@ -29,7 +29,7 @@ public class RecipeCompletionTimer : MonoBehaviour
         level = 1;
         timerComplete = false;
         controllerScript = GameObject.Find("VRAvatar").GetComponent<ControllerScript>();
-        timer = 60;
+        timer = 30;
         timerDisplayScript.SetDuration((float)timer);
         disappearTimer = GetComponent<RecipeDisappearTimer>();
     }
@@ -41,29 +41,30 @@ public class RecipeCompletionTimer : MonoBehaviour
     }
 
     // Reset the timer according to the level
+    // The aim is to give the user double the time after the recipe disappears
     public void ResetTimer()
     {
         if (level == 2)
         {
-            timer = 60;
+            timer = 30;
             // Set display to show sprite according to the duration
             timerDisplayScript.SetDuration((float)timer);
         }
         else if (level == 3)
         {
-            timer = 55;
+            timer = 30;
             // Set display to show sprite according to the duration
             timerDisplayScript.SetDuration((float)timer);
         }
         else if (level == 4)
         {
-            timer = 50;
+            timer = 25;
             // Set display to show sprite according to the duration
             timerDisplayScript.SetDuration((float)timer);
         }
         else if (level == 5)
         {
-            timer = 45;
+            timer = 20;
             // Set display to show sprite according to the duration
             timerDisplayScript.SetDuration((float)timer);
         }
