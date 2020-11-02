@@ -25,3 +25,8 @@ The experience is titled Alchemy: where the user is inside a hut surrounded with
 - Visual Studio/VS Code – IDE for C# scripting. Supported by Unity game engine.
 - Jira – Project management board
 - MS Teams – Communication within the team, with the Product Owner and project supervisor.
+
+## Getting Started
+
+Refer [this](https://github.com/ajmeraayam/Liminal-VR-Partnership-Program-2020/wiki/Development-Guide) link for Development Guide and Getting Started.
+Refer [this](https://github.com/ajmeraayam/Liminal-VR-Partnership-Program-2020/wiki) link for a detailed Project Report.
