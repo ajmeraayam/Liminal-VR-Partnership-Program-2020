@@ -1,0 +1,6 @@
+There are 3 tasks that we haven't included in this release. The tasks/ideas were optional and were not necessarily impacting the main functionalities that are currently implemented in the current product.
+
+The tasks that were left out are:
+1. When clicked on an item during animation of some ingredient, record that click and execute it later. 
+2. Recipe changes can be salient (give some indication that the recipe has changed).
+3. Create floating potion animation whenever the successful brew is finished.
