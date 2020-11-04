@@ -3,7 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Ladle
+  - Fire
+  - Herb
+  - Mushroom
+  - Mineral
+  - Magic item
+  - Pot
+  - Ingredient
+  - Splash
   layers:
   - Default
   - TransparentFX
