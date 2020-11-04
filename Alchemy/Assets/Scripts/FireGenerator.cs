@@ -16,14 +16,7 @@ public class FireGenerator : MonoBehaviour
         source.clip = fireFlick;
     }
 
-    void Update()
-    {
-        /*if (Input.GetMouseButtonDown(0))
-        {
-            particle.Play();
-        }*/
-    }
-
+    // Start the fire particle system
     public void startFire()
     {
         source.PlayOneShot(source.clip);

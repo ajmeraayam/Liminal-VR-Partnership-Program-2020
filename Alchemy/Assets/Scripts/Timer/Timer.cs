@@ -7,6 +7,9 @@ using UnityEngine.Events;
 public class Timer : MonoBehaviour
 {
     [Tooltip("Duration of timer in seconds")]
+    // This is just a placeholder within the inspector, to change the actual value, use DisappearTimer script respectively.
+    // RecipeDisappearTimer to change the duration of disappearing recipe for each level.
+    // RecipeCompletionTimer for each level time limit.
     public float duration;
 
     public enum CountUpOrDown {countUp, countDown}
@@ -106,7 +109,6 @@ public class Timer : MonoBehaviour
 	//Update is called once per frame
 	/*void Update () 
     {
-        Countdown();
     }*/
 
     public void SetDuration(float dur)

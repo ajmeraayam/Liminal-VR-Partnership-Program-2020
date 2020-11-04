@@ -8,16 +8,19 @@ using Liminal.SDK.VR.Input;
 public class ControllerScript : MonoBehaviour
 {
     //To disable input if needed
-    bool disableInput = false;
+    bool disableInput = true;
     bool disableRecipeCoroutine = false;
     bool gameStarted = false;
     private GameObject gameManager;
     private LevelHandler levelHandler;
+    private ScoreManager scoreManager;
     private GameObject success_fail_particleSystem;
     private RecipeResultParticles particles;
     string[] currentRecipe;
-    int actionsTaken;
-    int maxActionsForThisRecipe;
+    private int actionsTaken;
+    public int ActionsTaken { get { return actionsTaken; } }
+    private int maxActionsForThisRecipe;
+    public int MaxActionsForthisRecipe { get { return maxActionsForThisRecipe; } }
     string[] recordedActions;
     public GameObject[] baskets;
     private AnimationHandler[] basketScripts;
@@ -28,16 +31,18 @@ public class ControllerScript : MonoBehaviour
     private Tutorial tutorialScript;
     private GameObject mainBoard;
     private bool tutorialComplete;
-    public bool TutorialComplete { set { tutorialComplete = value; } }
+    public bool TutorialComplete { set { tutorialComplete = value; } get { return tutorialComplete; } }
     private bool successCorOn;
     private bool failureCorOn;
     private bool corExecuted;
+    private ChangingSkybox changingSkybox;
 
     void Start()
     {
         gameManager = GameObject.Find("Game Manager");
         success_fail_particleSystem = GameObject.Find("Success Fail PS");
         levelHandler = gameManager.GetComponent<LevelHandler>();
+        scoreManager = gameManager.GetComponent<ScoreManager>();
         particles = success_fail_particleSystem.GetComponent<RecipeResultParticles>();
         actionsTaken = 0;
         maxActionsForThisRecipe = 0;
@@ -54,6 +59,7 @@ public class ControllerScript : MonoBehaviour
         successCorOn = false;
         failureCorOn = false;
         corExecuted = false;
+        changingSkybox = gameManager.GetComponent<ChangingSkybox>();
     }
 
     // Update is called once per frame
@@ -99,6 +105,11 @@ public class ControllerScript : MonoBehaviour
                 }
             }
         }
+
+        /*if(inputDevice.GetButtonDown(VRButton.Two))
+        {
+            changingSkybox.Change();
+        }*/
     }
 
     //Handles the input and actions to be taken when button is clicked
@@ -152,7 +163,7 @@ public class ControllerScript : MonoBehaviour
                 recordedActions[actionsTaken] = "g";
                 actionsTaken++;
             }
-
+            scoreManager.UpdateScores();
             CheckActions();
         }
     }
@@ -216,7 +227,7 @@ public class ControllerScript : MonoBehaviour
     // Start the game
     public void StartGame()
     {
-        DisableSkipTutorialButton();
+        DisableTutorialBoard();
         gameStarted = true;
         DisableInput(false);
         actionsTaken = 0;
@@ -228,7 +239,6 @@ public class ControllerScript : MonoBehaviour
     {
         for(int i = 0; i < baskets.Length; i++)
         {
-            //basketScripts[i] = baskets[i].GetComponent<IngredientMovementAnimation>();
             basketScripts[i] = baskets[i].GetComponent<AnimationHandler>();
         }
     }
@@ -245,6 +255,7 @@ public class ControllerScript : MonoBehaviour
         maxActionsForThisRecipe = levelHandler.getMaxActions();
         recordedActions = new string[maxActionsForThisRecipe];
         completionTimerScript.StartTimer();
+        scoreManager.UpdateScores();
     }
 
     // After every click on ingredients or pot, check if user has completed specified number of actions.
@@ -382,9 +393,17 @@ public class ControllerScript : MonoBehaviour
         }
     }
 
-    public void DisableSkipTutorialButton()
+    // Disables the entire tutorial board
+    public void DisableTutorialBoard()
     {
         skipTutorialBoard.SetActive(false);
+    }
+
+    // Disables the skip tutorial button
+    public void DisableSkipTutorialButton()
+    {
+        Transform skipButton = skipTutorialBoard.transform.Find("Layout").Find("Skip Button");
+        skipButton.gameObject.SetActive(false);   
     }
 
     public void OnCompletionTimerEnd()

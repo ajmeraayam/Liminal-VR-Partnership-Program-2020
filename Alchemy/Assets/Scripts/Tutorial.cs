@@ -41,15 +41,15 @@ public class Tutorial : MonoBehaviour
     {
         controllerScript.SendMessage("DisableInput", true);
         instructionText.text = "Welcome to Alchemy!";
-        yield return new WaitForSeconds(4f);
-        instructionText.text = "The recipes will show up on the other board.";
-        yield return new WaitForSeconds(4f);
-        instructionText.text = "The colours on the board correspond to the labels on the basket";
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(6f);
+        //instructionText.text = "The recipes will show up on the other board.";
+        //yield return new WaitForSeconds(4f);
+        instructionText.text = "Make potions by following the recipes!";
+        yield return new WaitForSeconds(8f);
         // Display the tutorial recipe on the board
         DisplayRecipe();
         nextAction = 0;
-        instructionText.text = "You have to make potions by following the recipes. Click on the shining basket";
+        instructionText.text = "Click on the shining basket.";
         // Shine a spotlight
         ShineSpotlight(nextAction);
         controllerScript.SendMessage("DisableInput", false);
@@ -69,7 +69,9 @@ public class Tutorial : MonoBehaviour
 
         DeactivateAllSpotlights();
         displayManagerScript.DisappearRecipe();
-        instructionText.text = "Tutorial Completed! Good Luck!";
+        instructionText.text = "Well done! That's it, have fun playing!";
+        // disappear button here
+        controllerScript.DisableSkipTutorialButton();
         yield return new WaitForSeconds(5f);
         controllerScript.TutorialComplete = true;
         instructionText.text = "";
@@ -89,7 +91,7 @@ public class Tutorial : MonoBehaviour
             // If some actions left in the tutorial
             if(nextAction < recipe.Length)
             {
-                instructionText.text = "Great! Now click on the next shining object";
+                instructionText.text = "Great! Now click on the next shining object.";
                 // Shine a spotlight
                 ShineSpotlight(nextAction);
             }
@@ -112,7 +114,7 @@ public class Tutorial : MonoBehaviour
 
     private IEnumerator SkipTute()
     {
-        controllerScript.DisableSkipTutorialButton();
+        controllerScript.DisableTutorialBoard();
         while(controllerScript.IsRecipeCoroutineDisabled())
         {
             yield return new WaitForEndOfFrame();
